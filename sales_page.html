@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>סלינג מאסטר | ההכשרה המלאה למכירות באינטרנט</title>
+    <meta name="description" content="הקורס הפרקטי והמקיף ביותר בעברית למכירות אונליין. 62 שיעורי וידאו, 22 שעות תוכן, תבניות מוכנות וליווי אישי.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0A1628;
+            --navy-light: #1B2D4A;
+            --navy-mid: #132240;
+            --gold: #D4A843;
+            --gold-light: #EEB332;
+            --gold-glow: rgba(238, 179, 50, 0.3);
+            --white: #FFFFFF;
+            --gray-light: #E8EDF3;
+            --gray: #8899AA;
+            --green: #27AE60;
+            --red: #E74C3C;
+            --text: #C8D6E5;
+            --radius: 16px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Heebo', Arial, sans-serif;
+            background: var(--navy);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .en { font-family: 'Poppins', sans-serif; }
+
+        /* ===== UTILITY ===== */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .section { padding: 80px 0; }
+        .text-center { text-align: center; }
+        .text-gold { color: var(--gold-light); }
+        .text-white { color: var(--white); }
+
+        .btn-gold {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--navy);
+            font-weight: 800;
+            font-size: 1.2rem;
+            padding: 18px 48px;
+            border-radius: 50px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 25px var(--gold-glow);
+        }
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 40px rgba(238, 179, 50, 0.5);
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(238, 179, 50, 0.15);
+            color: var(--gold-light);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(238, 179, 50, 0.3);
+        }
+
+        h1, h2, h3, h4 { color: var(--white); line-height: 1.3; }
+
+        /* ===== FLOATING NAV ===== */
+        .topbar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 100;
+            background: rgba(10, 22, 40, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 12px 0;
+            transition: all 0.3s;
+        }
+        .topbar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .topbar-logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--gold-light);
+        }
+        .topbar-logo span { color: var(--white); }
+        .topbar-cta {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--navy);
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 50%, var(--navy-light) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            left: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+            opacity: 0.4;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .hero-text .subtitle {
+            font-size: 1.3rem;
+            color: var(--gray);
+            margin-bottom: 12px;
+        }
+        .hero-text .tagline {
+            font-size: 1.1rem;
+            color: var(--gold-light);
+            font-weight: 600;
+            margin-bottom: 32px;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 32px;
+        }
+        .hero-stat {
+            text-align: center;
+        }
+        .hero-stat .num {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gold-light);
+        }
+        .hero-stat .label {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        .hero-image {
+            position: relative;
+        }
+        .hero-image img {
+            width: 100%;
+            max-width: 450px;
+            border-radius: var(--radius);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+        .hero-image .float-badge {
+            position: absolute;
+            bottom: -15px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--navy);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 25px var(--gold-glow);
+        }
+
+        /* ===== PAIN POINTS ===== */
+        .pain-section {
+            background: var(--navy-mid);
+        }
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+        .pain-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: var(--radius);
+            padding: 32px;
+            transition: all 0.3s;
+        }
+        .pain-card:hover {
+            border-color: var(--gold-glow);
+            transform: translateY(-4px);
+        }
+        .pain-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+        .pain-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .pain-card p {
+            font-size: 0.95rem;
+            color: var(--gray);
+        }
+
+        /* ===== SOLUTION ===== */
+        .solution-section {
+            background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy) 100%);
+        }
+        .solution-list {
+            max-width: 700px;
+            margin: 40px auto 48px;
+        }
+        .solution-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .solution-item .check {
+            color: var(--green);
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .solution-item strong { color: var(--white); }
+
+        /* ===== MODULES ===== */
+        .modules-section { background: var(--navy); }
+        .module-accordion {
+            max-width: 800px;
+            margin: 48px auto 0;
+        }
+        .module-item {
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius);
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .module-item:hover { border-color: rgba(238, 179, 50, 0.3); }
+        .module-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.02);
+            transition: background 0.3s;
+        }
+        .module-header:hover { background: rgba(255,255,255,0.04); }
+        .module-num {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--navy);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .module-info { flex: 1; }
+        .module-info h3 { font-size: 1.1rem; margin-bottom: 2px; }
+        .module-info .meta { font-size: 0.85rem; color: var(--gray); }
+        .module-arrow {
+            font-size: 1.2rem;
+            color: var(--gray);
+            transition: transform 0.3s;
+        }
+        .module-item.open .module-arrow { transform: rotate(180deg); }
+        .module-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .module-item.open .module-content { max-height: 800px; }
+        .module-lessons {
+            padding: 0 24px 20px;
+            list-style: none;
+        }
+        .module-lessons li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+        .module-lessons li::before {
+            content: '▶';
+            color: var(--gold-light);
+            font-size: 0.6rem;
+        }
+        .module-lessons li span {
+            margin-right: auto;
+            color: var(--gray);
+            font-size: 0.8rem;
+            direction: ltr;
+        }
+
+        /* ===== INSTRUCTOR ===== */
+        .instructor-section { background: var(--navy-mid); }
+        .instructor-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 48px;
+            align-items: center;
+            margin-top: 48px;
+        }
+        .instructor-img {
+            width: 100%;
+            border-radius: var(--radius);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        }
+        .instructor-bio h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+        .instructor-bio p {
+            margin-bottom: 16px;
+            font-size: 1.05rem;
+        }
+        .instructor-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 24px;
+        }
+        .instructor-stat {
+            text-align: center;
+        }
+        .instructor-stat .val {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--gold-light);
+        }
+        .instructor-stat .lbl {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* ===== BONUSES ===== */
+        .bonuses-section { background: var(--navy); }
+        .bonus-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+        .bonus-card {
+            background: linear-gradient(135deg, rgba(238,179,50,0.05) 0%, rgba(238,179,50,0.02) 100%);
+            border: 1px solid rgba(238,179,50,0.15);
+            border-radius: var(--radius);
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .bonus-card::before {
+            content: 'בונוס';
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--gold-light);
+            color: var(--navy);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .bonus-card .icon { font-size: 2rem; margin-bottom: 12px; }
+        .bonus-card h4 { margin-bottom: 8px; }
+        .bonus-card .value {
+            color: var(--gold-light);
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-top: 12px;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-section {
+            background: linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 100%);
+        }
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+        .testimonial-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: var(--radius);
+            padding: 28px;
+        }
+        .testimonial-stars {
+            color: var(--gold-light);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+        .testimonial-text {
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+            font-style: italic;
+            color: var(--text);
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .testimonial-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--navy);
+            font-weight: 800;
+            font-size: 1rem;
+        }
+        .testimonial-name { font-weight: 600; color: var(--white); font-size: 0.9rem; }
+        .testimonial-role { font-size: 0.8rem; color: var(--gray); }
+
+        /* ===== PRICING ===== */
+        .pricing-section {
+            background: var(--navy-mid);
+            position: relative;
+        }
+        .pricing-card {
+            max-width: 550px;
+            margin: 48px auto 0;
+            background: linear-gradient(135deg, rgba(238,179,50,0.08) 0%, rgba(10,22,40,0.8) 100%);
+            border: 2px solid rgba(238,179,50,0.3);
+            border-radius: 24px;
+            padding: 48px;
+            text-align: center;
+            position: relative;
+        }
+        .pricing-card .popular-tag {
+            position: absolute;
+            top: -16px;
+            right: 50%;
+            transform: translateX(50%);
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--navy);
+            padding: 8px 28px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+        .price-original {
+            font-size: 1.5rem;
+            color: var(--gray);
+            text-decoration: line-through;
+            margin-bottom: 4px;
+        }
+        .price-current {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--gold-light);
+            margin-bottom: 4px;
+        }
+        .price-current small {
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+        .price-installments {
+            color: var(--gray);
+            font-size: 1rem;
+            margin-bottom: 24px;
+        }
+        .price-includes {
+            list-style: none;
+            text-align: right;
+            margin: 24px 0;
+        }
+        .price-includes li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .price-includes li .ic { color: var(--green); font-size: 1.1rem; }
+
+        /* Coupon */
+        .coupon-section {
+            margin: 28px 0;
+            display: flex;
+            gap: 8px;
+        }
+        .coupon-input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
+            color: var(--white);
+            font-size: 1rem;
+            font-family: 'Heebo', sans-serif;
+            outline: none;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        .coupon-input::placeholder { color: var(--gray); letter-spacing: 0; }
+        .coupon-input:focus { border-color: var(--gold-light); }
+        .coupon-btn {
+            padding: 14px 24px;
+            background: rgba(238,179,50,0.15);
+            border: 1px solid var(--gold-light);
+            color: var(--gold-light);
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Heebo', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+        .coupon-btn:hover { background: rgba(238,179,50,0.25); }
+        .coupon-msg {
+            font-size: 0.85rem;
+            margin-top: 8px;
+            min-height: 22px;
+        }
+        .coupon-msg.success { color: var(--green); }
+        .coupon-msg.error { color: var(--red); }
+
+        .guarantee {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(39, 174, 96, 0.1);
+            border: 1px solid rgba(39, 174, 96, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 24px;
+            font-size: 0.9rem;
+        }
+        .guarantee .shield { font-size: 2rem; }
+
+        /* ===== FAQ ===== */
+        .faq-section { background: var(--navy); }
+        .faq-list {
+            max-width: 750px;
+            margin: 48px auto 0;
+        }
+        .faq-item {
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .faq-q {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--white);
+            font-size: 1.05rem;
+        }
+        .faq-q:hover { color: var(--gold-light); }
+        .faq-arrow { transition: transform 0.3s; font-size: 0.9rem; color: var(--gray); }
+        .faq-item.open .faq-arrow { transform: rotate(180deg); }
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .faq-item.open .faq-a { max-height: 300px; }
+        .faq-a p {
+            padding: 0 0 20px;
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        /* ===== NOT FOR YOU ===== */
+        .notfor-section { background: var(--navy-mid); }
+        .notfor-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 48px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .notfor-col h3 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .notfor-col ul {
+            list-style: none;
+        }
+        .notfor-col ul li {
+            padding: 8px 0;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            font-size: 0.95rem;
+        }
+
+        /* ===== FINAL CTA ===== */
+        .final-cta-section {
+            background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy) 100%);
+            text-align: center;
+            padding: 100px 0;
+            position: relative;
+        }
+        .final-cta-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 800px;
+            height: 400px;
+            background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+            opacity: 0.3;
+        }
+        .final-cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .final-cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: var(--gray);
+            position: relative;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: rgba(0,0,0,0.3);
+            padding: 32px 0;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        .footer a { color: var(--gold-light); text-decoration: none; }
+
+        /* ===== COUNTDOWN ===== */
+        .countdown-bar {
+            background: linear-gradient(90deg, rgba(238,179,50,0.15) 0%, rgba(231,76,60,0.15) 100%);
+            border-bottom: 1px solid rgba(238,179,50,0.2);
+            padding: 10px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            position: fixed;
+            top: 56px;
+            right: 0;
+            left: 0;
+            z-index: 99;
+        }
+        .countdown-bar .timer {
+            display: inline-flex;
+            gap: 6px;
+            direction: ltr;
+            margin-right: 12px;
+        }
+        .countdown-bar .timer span {
+            background: rgba(238,179,50,0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            color: var(--gold-light);
+            min-width: 38px;
+            text-align: center;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero { padding-top: 120px; min-height: auto; }
+            .hero-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+            .hero-text h1 { font-size: 2rem; }
+            .hero-stats { justify-content: center; }
+            .hero-image { order: -1; }
+            .hero-image img { max-width: 280px; margin: 0 auto; display: block; }
+            .pain-grid { grid-template-columns: 1fr; }
+            .testimonial-grid { grid-template-columns: 1fr; }
+            .bonus-grid { grid-template-columns: 1fr; }
+            .instructor-grid { grid-template-columns: 1fr; text-align: center; }
+            .instructor-img { max-width: 250px; margin: 0 auto; }
+            .instructor-stats { justify-content: center; }
+            .notfor-grid { grid-template-columns: 1fr; }
+            .pricing-card { padding: 32px 20px; }
+            .price-current { font-size: 2.8rem; }
+            .final-cta-section h2 { font-size: 1.8rem; }
+            .hero-stats { gap: 20px; }
+            .countdown-bar { top: 52px; font-size: 0.8rem; }
+            .section { padding: 60px 0; }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="topbar" id="topbar">
+    <div class="topbar-inner">
+        <div class="topbar-logo"><span class="en">SELLING</span> מאסטר</div>
+        <a href="#pricing" class="topbar-cta">הרשמה עכשיו</a>
+    </div>
+</div>
+
+<!-- ===== COUNTDOWN ===== -->
+<div class="countdown-bar" id="countdownBar">
+    <span>🔥 מבצע השקה מוגבל!</span>
+    <div class="timer">
+        <span id="cd-hours">00</span>:
+        <span id="cd-minutes">00</span>:
+        <span id="cd-seconds">00</span>
+    </div>
+    <span>נותרו עוד <strong id="spots-left">127</strong> מקומות במחיר השקה</span>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-text fade-up">
+                <div class="badge" style="margin-bottom:16px;">🚀 ההכשרה המלאה למכירות באינטרנט</div>
+                <h1><span class="en" style="display:block;font-size:1.8rem;color:var(--gold-light);">SELLING MASTER</span>סלינג מאסטר</h1>
+                <p class="subtitle">מהמוצר הראשון ועד מיליון שקל במכירות — שלב אחר שלב</p>
+                <p class="tagline">פשוט. פרקטי. ישראלי.</p>
+                <a href="#pricing" class="btn-gold">קבלו גישה מיידית להכשרה &larr;</a>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="num">62</div>
+                        <div class="label">שיעורי וידאו</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="num">22</div>
+                        <div class="label">שעות תוכן</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="num">6</div>
+                        <div class="label">מודולים</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image fade-up">
+                <img src="avatar_presenter_video.png" alt="המרצה - סלינג מאסטר">
+                <div class="float-badge">⭐ מבוסס ניסיון אמיתי</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PAIN POINTS ===== -->
+<section class="pain-section section" id="problems">
+    <div class="container">
+        <h2 class="text-center fade-up" style="font-size:2rem;">מכירים את זה? 🤔</h2>
+        <div class="pain-grid">
+            <div class="pain-card fade-up">
+                <div class="icon">💸</div>
+                <h3>"שרפתי כסף על פרסום ולא ראיתי תוצאות"</h3>
+                <p>השקעתם בפייסבוק, בגוגל, אולי גם בסוכנות — ועדיין לא מבינים למה אין מכירות.</p>
+            </div>
+            <div class="pain-card fade-up">
+                <div class="icon">😰</div>
+                <h3>"אני לא יודע מאיפה להתחיל"</h3>
+                <p>יש רעיון, אולי גם מוצר — אבל הצעדים הראשונים מרגישים כמו הר.</p>
+            </div>
+            <div class="pain-card fade-up">
+                <div class="icon">🏃</div>
+                <h3>"המתחרים שלי מוכרים יותר ואני לא מבין למה"</h3>
+                <p>רואים עסקים דומים שפורחים, ולא ברור מה הם עושים אחרת.</p>
+            </div>
+            <div class="pain-card fade-up">
+                <div class="icon">🤯</div>
+                <h3>"אני לא טכני — חנות אונליין זה מסובך"</h3>
+                <p>כל הפלטפורמות, התשלומים, המשלוחים — מרגיש בלתי אפשרי.</p>
+            </div>
+            <div class="pain-card fade-up">
+                <div class="icon">⏰</div>
+                <h3>"אין לי זמן ללמוד שיווק דיגיטלי"</h3>
+                <p>כבר עובדים 12 שעות ביום, ואין כוח למלא עוד קורסים תיאורטיים.</p>
+            </div>
+            <div class="pain-card fade-up">
+                <div class="icon">📉</div>
+                <h3>"עובד קשה אבל לא מרוויח מספיק"</h3>
+                <p>המחזור לא גדל, הרווח מתכווץ, וחסר ערוץ הכנסה נוסף.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SOLUTION ===== -->
+<section class="solution-section section" id="solution">
+    <div class="container text-center">
+        <div class="badge fade-up">הפתרון</div>
+        <h2 class="fade-up" style="font-size:2rem;margin-top:16px;">סלינג מאסטר — המערכת המלאה שתבנה לכם<br>עסק מכירות אונליין מצליח</h2>
+        <div class="solution-list">
+            <div class="solution-item fade-up"><span class="check">✅</span><div><strong>מודול 1:</strong> חשיבה עסקית דיגיטלית — היסודות שכולם מדלגים עליהם</div></div>
+            <div class="solution-item fade-up"><span class="check">✅</span><div><strong>מודול 2:</strong> מציאת מוצרים וספקים — ישראליים ובינלאומיים</div></div>
+            <div class="solution-item fade-up"><span class="check">✅</span><div><strong>מודול 3:</strong> בניית חנות אונליין שמוכרת 24/7</div></div>
+            <div class="solution-item fade-up"><span class="check">✅</span><div><strong>מודול 4:</strong> שיווק ופרסום — פייסבוק, גוגל, תוכן, ווטסאפ</div></div>
+            <div class="solution-item fade-up"><span class="check">✅</span><div><strong>מודול 5:</strong> משפכי מכירה ואוטומציות — המערכת עובדת בשבילך</div></div>
+            <div class="solution-item fade-up"><span class="check">✅</span><div><strong>מודול 6:</strong> סקיילינג ושירות לקוחות — מעסק קטן לעסק גדול</div></div>
+        </div>
+        <a href="#pricing" class="btn-gold fade-up">אני רוצה להתחיל &larr;</a>
+    </div>
+</section>
+
+<!-- ===== MODULES ===== -->
+<section class="modules-section section" id="modules">
+    <div class="container">
+        <h2 class="text-center fade-up" style="font-size:2rem;">62 שיעורים. 22 שעות. 6 מודולים.</h2>
+        <p class="text-center fade-up" style="color:var(--gray);margin-top:8px;">לחצו על כל מודול לפירוט השיעורים</p>
+        <div class="module-accordion">
+
+            <div class="module-item fade-up">
+                <div class="module-header" onclick="toggleModule(this)">
+                    <div class="module-num">1</div>
+                    <div class="module-info">
+                        <h3>היסודות — חשיבה עסקית דיגיטלית</h3>
+                        <div class="meta">10 שיעורים · 3.5 שעות · "לפני שמוכרים — חושבים נכון"</div>
+                    </div>
+                    <div class="module-arrow">▼</div>
+                </div>
+                <div class="module-content">
+                    <ul class="module-lessons">
+                        <li>ברוכים הבאים — איך להפיק מקסימום מהקורס <span>10 דק'</span></li>
+                        <li>המהפכה הדיגיטלית — למה עכשיו זה הזמן <span>20 דק'</span></li>
+                        <li>מודל עסקי: מוצר פיזי vs דיגיטלי vs שירות <span>25 דק'</span></li>
+                        <li>המתמטיקה של עסק מצליח — תמחור ורווחיות <span>25 דק'</span></li>
+                        <li>מחקר שוק בעשר דקות — כלים חינמיים <span>20 דק'</span></li>
+                        <li>בחירת נישה רווחית — השיטה המוכחת <span>25 דק'</span></li>
+                        <li>הלקוח האידיאלי שלך — בניית אווטאר <span>20 דק'</span></li>
+                        <li>המסע של הלקוח — מזר ועד רוכש <span>20 דק'</span></li>
+                        <li>חוקיות ורגולציה — מה חייבים לדעת <span>15 דק'</span></li>
+                        <li>תרגיל מסכם: תוכנית עסקית בעמוד אחד <span>15 דק'</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module-item fade-up">
+                <div class="module-header" onclick="toggleModule(this)">
+                    <div class="module-num">2</div>
+                    <div class="module-info">
+                        <h3>מציאת מוצרים וספקים</h3>
+                        <div class="meta">10 שיעורים · 3.5 שעות · "המוצר הנכון = חצי מההצלחה"</div>
+                    </div>
+                    <div class="module-arrow">▼</div>
+                </div>
+                <div class="module-content">
+                    <ul class="module-lessons">
+                        <li>7 שיטות למציאת מוצרים מנצחים <span>25 דק'</span></li>
+                        <li>מחקר מוצר מעמיק — האם יש ביקוש? <span>20 דק'</span></li>
+                        <li>ספקים בישראל — איפה מוצאים ואיך מתנהלים <span>25 דק'</span></li>
+                        <li>ספקים בחו"ל — Alibaba, 1688, ייבוא ישיר <span>30 דק'</span></li>
+                        <li>דרופשיפינג — מודל ללא מלאי <span>20 דק'</span></li>
+                        <li>ייבוא מסין — שלב אחר שלב <span>25 דק'</span></li>
+                        <li>משא ומתן עם ספקים — טכניקות שעובדות <span>20 דק'</span></li>
+                        <li>בדיקת איכות ודגימות <span>15 דק'</span></li>
+                        <li>לוגיסטיקה ואחסון — מהספק ללקוח <span>20 דק'</span></li>
+                        <li>תרגיל מסכם: מצאו 3 מוצרים פוטנציאליים <span>15 דק'</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module-item fade-up">
+                <div class="module-header" onclick="toggleModule(this)">
+                    <div class="module-num">3</div>
+                    <div class="module-info">
+                        <h3>בניית חנות אונליין</h3>
+                        <div class="meta">12 שיעורים · 4 שעות · "החנות שמוכרת בשבילך 24/7"</div>
+                    </div>
+                    <div class="module-arrow">▼</div>
+                </div>
+                <div class="module-content">
+                    <ul class="module-lessons">
+                        <li>באיזו פלטפורמה לבחור? השוואה מלאה <span>25 דק'</span></li>
+                        <li>פתיחת חנות ב-Shopify — שלב אחר שלב <span>25 דק'</span></li>
+                        <li>עיצוב שמוכר — עקרונות UX <span>20 דק'</span></li>
+                        <li>דפי מוצר שממירים — הנוסחה <span>25 דק'</span></li>
+                        <li>צילום מוצרים — גם עם הטלפון <span>20 דק'</span></li>
+                        <li>קופירייטינג בעברית — כתיבת תוכן שמוכר <span>25 דק'</span></li>
+                        <li>הגדרת תשלומים ומשלוחים <span>20 דק'</span></li>
+                        <li>מדיניות חנות — ביטולים, החזרות, פרטיות <span>15 דק'</span></li>
+                        <li>SEO לחנות — איך גוגל מוצא אותך <span>25 דק'</span></li>
+                        <li>Google Analytics & Pixel — מעקב חכם <span>20 דק'</span></li>
+                        <li>אופטימיזציה למובייל <span>15 דק'</span></li>
+                        <li>תרגיל מסכם: השקת חנות עם 3 מוצרים <span>15 דק'</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module-item fade-up">
+                <div class="module-header" onclick="toggleModule(this)">
+                    <div class="module-num">4</div>
+                    <div class="module-info">
+                        <h3>שיווק ופרסום דיגיטלי</h3>
+                        <div class="meta">12 שיעורים · 4.5 שעות · "תביא תנועה — תעשה כסף"</div>
+                    </div>
+                    <div class="module-arrow">▼</div>
+                </div>
+                <div class="module-content">
+                    <ul class="module-lessons">
+                        <li>אסטרטגיית שיווק — התמונה הגדולה <span>20 דק'</span></li>
+                        <li>פייסבוק ואינסטגרם — הבסיס <span>25 דק'</span></li>
+                        <li>יצירת מודעות שעוצרות את הסקרול <span>30 דק'</span></li>
+                        <li>טירגוט קהלים — למצוא את הלקוח המושלם <span>25 דק'</span></li>
+                        <li>מבנה קמפיין מנצח — CBO vs ABO <span>25 דק'</span></li>
+                        <li>גוגל שופינג ו-Google Ads <span>25 דק'</span></li>
+                        <li>שיווק באמצעות תוכן — בלוג, וידאו, רילס <span>20 דק'</span></li>
+                        <li>אימייל מרקטינג — הכסף ברשימה <span>25 דק'</span></li>
+                        <li>וואטסאפ מרקטינג — הערוץ הישראלי <span>20 דק'</span></li>
+                        <li>ריטרגטינג — להחזיר את מי שברח <span>20 דק'</span></li>
+                        <li>אנליטיקס — מה המספרים אומרים <span>20 דק'</span></li>
+                        <li>תרגיל מסכם: קמפיין ראשון ב-500₪ <span>15 דק'</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module-item fade-up">
+                <div class="module-header" onclick="toggleModule(this)">
+                    <div class="module-num">5</div>
+                    <div class="module-info">
+                        <h3>משפכי מכירה ואוטומציות</h3>
+                        <div class="meta">10 שיעורים · 3.5 שעות · "המערכת עובדת בשבילך גם כשאתה ישן"</div>
+                    </div>
+                    <div class="module-arrow">▼</div>
+                </div>
+                <div class="module-content">
+                    <ul class="module-lessons">
+                        <li>מה זה משפך מכירה ולמה זה קריטי <span>20 דק'</span></li>
+                        <li>דף נחיתה שממיר — הנוסחה <span>25 דק'</span></li>
+                        <li>ליד מגנט — מתנה שמושכת לידים <span>20 דק'</span></li>
+                        <li>רצף מיילים אוטומטי — Drip Campaign <span>25 דק'</span></li>
+                        <li>אוטומציית וואטסאפ — מעקב חכם <span>20 דק'</span></li>
+                        <li>נטישת עגלה — להציל את המכירה <span>25 דק'</span></li>
+                        <li>אפסיילים וקרוס-סיילים <span>20 דק'</span></li>
+                        <li>תוכנית שותפים (אפיליאייט) <span>20 דק'</span></li>
+                        <li>אוטומציית שירות לקוחות <span>20 דק'</span></li>
+                        <li>תרגיל מסכם: בניית משפך מכירה מלא <span>15 דק'</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module-item fade-up">
+                <div class="module-header" onclick="toggleModule(this)">
+                    <div class="module-num">6</div>
+                    <div class="module-info">
+                        <h3>סקיילינג ושירות לקוחות</h3>
+                        <div class="meta">8 שיעורים · 3 שעות · "מעסק קטן לעסק גדול — בלי לקרוס"</div>
+                    </div>
+                    <div class="module-arrow">▼</div>
+                </div>
+                <div class="module-content">
+                    <ul class="module-lessons">
+                        <li>מתי ואיך לעשות סקיילינג <span>25 דק'</span></li>
+                        <li>הגדלת תקציב פרסום — בלי לשרוף כסף <span>25 דק'</span></li>
+                        <li>הוספת מוצרים וקטגוריות <span>20 דק'</span></li>
+                        <li>ניהול מלאי ותזרים מזומנים <span>25 דק'</span></li>
+                        <li>שירות לקוחות מעולה = לקוחות חוזרים <span>20 דק'</span></li>
+                        <li>ביקורות וחוות דעת — הנכס הכי חשוב <span>20 דק'</span></li>
+                        <li>גיוס עובדים/פרילנסרים — מתי ואיך <span>20 דק'</span></li>
+                        <li>שיעור סיום: מה הלאה + Q&A <span>15 דק'</span></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ===== INSTRUCTOR ===== -->
+<section class="instructor-section section" id="instructor">
+    <div class="container">
+        <h2 class="text-center fade-up" style="font-size:2rem;">מי מלמד?</h2>
+        <div class="instructor-grid fade-up">
+            <img src="avatar_presenter_closeup.png" alt="המרצה" class="instructor-img">
+            <div class="instructor-bio">
+                <h3>יובל נגלר</h3>
+                <p>בעל עסק סחר והפצה פעיל עם מחזור של מעל <strong class="text-gold">1.5 מיליון ₪ בשנה</strong>. לא מאמן תיאורטי — אלא יזם שחי את העולם הזה כל יום.</p>
+                <p>ב-<strong class="en">SELLING MASTER</strong> אני חולק את כל מה שלמדתי על בשרי — הטעויות היקרות, הקיצורים שעובדים, והמערכות שבניתי שעובדות בשבילי גם כשאני ישן.</p>
+                <p style="color:var(--gold-light);font-weight:600;">ההשקעה הכי טובה שתעשו — היא בעצמכם.</p>
+                <div class="instructor-stats">
+                    <div class="instructor-stat">
+                        <div class="val">1.5M+</div>
+                        <div class="lbl">מכירות שנתיות</div>
+                    </div>
+                    <div class="instructor-stat">
+                        <div class="val">745</div>
+                        <div class="lbl">לקוחות פעילים</div>
+                    </div>
+                    <div class="instructor-stat">
+                        <div class="val">8+</div>
+                        <div class="lbl">שנות ניסיון</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== BONUSES ===== -->
+<section class="bonuses-section section" id="bonuses">
+    <div class="container">
+        <h2 class="text-center fade-up" style="font-size:2rem;">בונוסים בשווי 2,400₪ — מתנה 🎁</h2>
+        <div class="bonus-grid">
+            <div class="bonus-card fade-up">
+                <div class="icon">📋</div>
+                <h4>מדריך 50+ ספקים ישראליים</h4>
+                <p style="color:var(--gray)">רשימה סודית של ספקים מומלצים עם פרטי קשר, תנאים, ומינימום הזמנה.</p>
+                <div class="value">שווי: 490₪</div>
+            </div>
+            <div class="bonus-card fade-up">
+                <div class="icon">🛒</div>
+                <h4>תבנית חנות Shopify מוכנה</h4>
+                <p style="color:var(--gray)">עיצוב ישראלי RTL מקצועי, מותאם לשוק המקומי. פשוט להתקין ולהתחיל למכור.</p>
+                <div class="value">שווי: 890₪</div>
+            </div>
+            <div class="bonus-card fade-up">
+                <div class="icon">💬</div>
+                <h4>10 תסריטי מכירה בוואטסאפ</h4>
+                <p style="color:var(--gray)">הודעות מוכנות שנבדקו ומוכחות — פשוט להעתיק, להתאים ולשלוח.</p>
+                <div class="value">שווי: 390₪</div>
+            </div>
+            <div class="bonus-card fade-up">
+                <div class="icon">📊</div>
+                <h4>מחשבון רווחיות באקסל</h4>
+                <p style="color:var(--gray)">כלי שבונה תמחור, מחשב מרווח, ומראה בדיוק כמה תרוויחו על כל מוצר.</p>
+                <div class="value">שווי: 290₪</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials-section section" id="testimonials">
+    <div class="container">
+        <h2 class="text-center fade-up" style="font-size:2rem;">מה אומרים הבוגרים 💬</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-card fade-up">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"תוך חודשיים מההרשמה פתחתי חנות שמוכרת ב-15,000₪ בחודש. הקורס הזה שינה לי את החיים. כל שקל שהשקעתי חזר פי 10."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">ד</div>
+                    <div>
+                        <div class="testimonial-name">דנה כ.</div>
+                        <div class="testimonial-role">בעלת חנות אביזרי בית</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-up">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"אחרי 3 קורסים אחרים שלא נתנו תוצאות — הקורס הזה היה שונה. פרקטי, ישראלי, ומותאם בדיוק לשוק שלנו. הגעתי ל-40K בחודש."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">א</div>
+                    <div>
+                        <div class="testimonial-name">אלון מ.</div>
+                        <div class="testimonial-role">יזם e-commerce</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-up">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"הפסקתי לשרוף כסף על סוכנויות. היום אני מנהל את השיווק שלי לבד ומרוויח יותר. מודול 4 (שיווק) לבד שווה את כל הקורס."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">ר</div>
+                    <div>
+                        <div class="testimonial-name">רועי ש.</div>
+                        <div class="testimonial-role">בעל עסק למוצרי טיפוח</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== NOT FOR YOU ===== -->
+<section class="notfor-section section">
+    <div class="container">
+        <h2 class="text-center fade-up" style="font-size:2rem;">למי הקורס הזה? ולמי לא?</h2>
+        <div class="notfor-grid fade-up">
+            <div class="notfor-col">
+                <h3 style="color:var(--green);">✅ כן, בשבילך אם:</h3>
+                <ul>
+                    <li><span style="color:var(--green)">✓</span> אתה רוצה לבנות ערוץ מכירות אונליין חדש</li>
+                    <li><span style="color:var(--green)">✓</span> אתה מוכן להשקיע שעה ביום ללמידה</li>
+                    <li><span style="color:var(--green)">✓</span> אתה מחפש שיטה מוכחת ומסודרת</li>
+                    <li><span style="color:var(--green)">✓</span> אתה רוצה תוצאות — לא רק תיאוריה</li>
+                    <li><span style="color:var(--green)">✓</span> אתה בעל עסק קיים או יזם בתחילת הדרך</li>
+                </ul>
+            </div>
+            <div class="notfor-col">
+                <h3 style="color:var(--red);">❌ לא בשבילך אם:</h3>
+                <ul>
+                    <li><span style="color:var(--red)">✗</span> אתה מחפש "כסף מהיר" ללא מאמץ</li>
+                    <li><span style="color:var(--red)">✗</span> אתה לא מוכן להשקיע זמן בלמידה</li>
+                    <li><span style="color:var(--red)">✗</span> אתה מצפה לתוצאות ללא עבודה</li>
+                    <li><span style="color:var(--red)">✗</span> אתה מחפש קיצורי דרך "קסומים"</li>
+                    <li><span style="color:var(--red)">✗</span> אתה לא לוקח אחריות על ההצלחה שלך</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section class="pricing-section section" id="pricing">
+    <div class="container">
+        <h2 class="text-center fade-up" style="font-size:2rem;">ההשקעה שלכם</h2>
+        <div class="pricing-card fade-up">
+            <div class="popular-tag">🔥 הנבחר ביותר</div>
+
+            <div style="margin-top:16px;">
+                <div class="price-original" id="price-original">₪2,900</div>
+                <div class="price-current" id="price-current">₪2,900</div>
+                <div class="price-installments" id="price-installments">או 3 תשלומים של ₪967</div>
+            </div>
+
+            <div class="coupon-section">
+                <input type="text" class="coupon-input" id="couponInput" placeholder="הכנס קוד קופון" maxlength="20">
+                <button class="coupon-btn" id="couponBtn" onclick="applyCoupon()">החל קופון</button>
+            </div>
+            <div class="coupon-msg" id="couponMsg"></div>
+
+            <ul class="price-includes">
+                <li><span class="ic">✅</span> 62 שיעורי וידאו באיכות גבוהה</li>
+                <li><span class="ic">✅</span> 22+ שעות תוכן פרקטי</li>
+                <li><span class="ic">✅</span> 6 מודולים מסודרים שלב אחר שלב</li>
+                <li><span class="ic">✅</span> חוברות עבודה ותבניות להורדה</li>
+                <li><span class="ic">✅</span> קהילת תמיכה בוואטסאפ (שנה)</li>
+                <li><span class="ic">✅</span> 3 מפגשי Q&A חיים בחודש הראשון</li>
+                <li><span class="ic">✅</span> גישה לכל החיים + עדכונים</li>
+                <li><span class="ic">🎁</span> <strong class="text-gold">4 בונוסים בשווי 2,400₪</strong></li>
+            </ul>
+
+            <a href="#" class="btn-gold" style="width:100%;text-align:center;display:block;" id="buyBtn">
+                קבלו גישה מיידית להכשרה &larr;
+            </a>
+
+            <div class="guarantee">
+                <div class="shield">🛡️</div>
+                <div>
+                    <strong class="text-white">אחריות 14 יום — 100% החזר כספי</strong><br>
+                    <span style="color:var(--gray)">אם הקורס לא מתאים לכם — מחזירים לכם כל שקל. ללא שאלות.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq-section section" id="faq">
+    <div class="container">
+        <h2 class="text-center fade-up" style="font-size:2rem;">שאלות ותשובות</h2>
+        <div class="faq-list">
+
+            <div class="faq-item fade-up">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    האם הקורס מתאים למתחילים לגמרי?
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-a"><p>בהחלט! הקורס בנוי שלב אחר שלב, מהבסיס ועד רמה מתקדמת. לא צריך ניסיון קודם — רק רצון ללמוד ולעשות.</p></div>
+            </div>
+
+            <div class="faq-item fade-up">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    כמה זמן ייקח לי לסיים את הקורס?
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-a"><p>הקורס מכיל 22 שעות תוכן. בקצב של שעה ביום, תסיימו תוך חודש. אבל הגישה היא לכל החיים — אז אפשר ללמוד בקצב שלכם.</p></div>
+            </div>
+
+            <div class="faq-item fade-up">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    האם יש תמיכה אחרי הרכישה?
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-a"><p>כן. יש קהילת וואטסאפ פעילה, 3 מפגשי Q&A חיים בחודש הראשון, ותמיכה במייל. אתם לא לבד בזה.</p></div>
+            </div>
+
+            <div class="faq-item fade-up">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    מה אם הקורס לא מתאים לי?
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-a"><p>יש אחריות 14 יום ללא שאלות. אם הקורס לא בשבילכם — מחזירים לכם כל שקל. בלי עוקץ.</p></div>
+            </div>
+
+            <div class="faq-item fade-up">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    האם צריך להשקיע כסף נוסף מעבר לקורס?
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-a"><p>הקורס עצמו מספיק כדי להתחיל. תקציב פרסום ראשוני של 500-1,000₪ מומלץ כשמגיעים למודול 4, אבל זה לא חובה — יש גם שיטות חינמיות.</p></div>
+            </div>
+
+            <div class="faq-item fade-up">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    אני יכול לצפות מהטלפון?
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-a"><p>כן. כל התכנים נגישים מכל מכשיר — מחשב, טאבלט וטלפון. לומדים מתי ומאיפה שנוח לכם.</p></div>
+            </div>
+
+            <div class="faq-item fade-up">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    איך מקבלים חשבונית?
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-a"><p>חשבונית מס נשלחת אוטומטית במייל מיד לאחר הרכישה. ניתן להוציא גם חשבונית על שם חברה.</p></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="final-cta-section" id="final">
+    <div class="container">
+        <h2 class="fade-up">ההשקעה הכי טובה שתעשו — היא בעצמכם</h2>
+        <p class="fade-up">62 שיעורים. 22 שעות. מערכת מלאה למכירות באינטרנט.<br>מתחילים היום.</p>
+        <a href="#pricing" class="btn-gold fade-up" style="font-size:1.3rem;padding:20px 56px;">
+            קבלו גישה מיידית &larr;
+        </a>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="container">
+        <p style="margin-bottom:8px;"><strong class="text-gold en">SELLING MASTER</strong> by <a href="https://ymarket.co.il" target="_blank">YMarket</a></p>
+        <p>© 2026 כל הזכויות שמורות | <a href="#">תקנון</a> | <a href="#">מדיניות פרטיות</a> | <a href="#">יצירת קשר</a></p>
+    </div>
+</footer>
+
+<script>
+// ===== COUPON SYSTEM =====
+const COUPONS = {
+    'FACEBOOK50': { discount: 0.50, label: '50% הנחה — מבצע פייסבוק!', maxUses: 500 },
+    'LAUNCH30':   { discount: 0.30, label: '30% הנחה — מבצע השקה!', maxUses: null },
+    'VIP100':     { discount: null, flat: 100, label: '100₪ הנחה — לקוחות VIP!', maxUses: null },
+    'FIRST20':    { discount: 0.20, label: '20% הנחה — ראשונים!', maxUses: 200 },
+};
+
+const BASE_PRICE = 2900;
+let currentPrice = BASE_PRICE;
+let appliedCoupon = null;
+
+function applyCoupon() {
+    const input = document.getElementById('couponInput');
+    const msg = document.getElementById('couponMsg');
+    const code = input.value.trim().toUpperCase();
+
+    if (!code) {
+        msg.className = 'coupon-msg error';
+        msg.textContent = 'הכנס קוד קופון';
+        return;
+    }
+
+    const coupon = COUPONS[code];
+    if (!coupon) {
+        msg.className = 'coupon-msg error';
+        msg.textContent = 'קוד קופון לא תקין';
+        shakeElement(input);
+        return;
+    }
+
+    if (appliedCoupon === code) {
+        msg.className = 'coupon-msg error';
+        msg.textContent = 'קופון כבר הוחל';
+        return;
+    }
+
+    // Calculate new price
+    if (coupon.flat) {
+        currentPrice = BASE_PRICE - coupon.flat;
+    } else {
+        currentPrice = Math.round(BASE_PRICE * (1 - coupon.discount));
+    }
+
+    appliedCoupon = code;
+
+    // Update UI
+    document.getElementById('price-original').textContent = '₪' + BASE_PRICE.toLocaleString();
+    document.getElementById('price-original').style.display = 'block';
+    document.getElementById('price-current').textContent = '₪' + currentPrice.toLocaleString();
+    document.getElementById('price-installments').textContent =
+        'או 3 תשלומים של ₪' + Math.round(currentPrice / 3).toLocaleString();
+
+    msg.className = 'coupon-msg success';
+    msg.textContent = '✅ ' + coupon.label + ' — חסכת ₪' + (BASE_PRICE - currentPrice).toLocaleString() + '!';
+
+    // Animate
+    document.getElementById('price-current').style.transform = 'scale(1.1)';
+    setTimeout(() => document.getElementById('price-current').style.transform = 'scale(1)', 300);
+
+    input.disabled = true;
+    document.getElementById('couponBtn').disabled = true;
+    document.getElementById('couponBtn').textContent = 'הוחל ✓';
+}
+
+function shakeElement(el) {
+    el.style.animation = 'shake 0.4s';
+    setTimeout(() => el.style.animation = '', 400);
+}
+
+// ===== COUNTDOWN TIMER =====
+function startCountdown() {
+    // Set to end of today + 2 days
+    const now = new Date();
+    const end = new Date(now);
+    end.setDate(end.getDate() + 2);
+    end.setHours(23, 59, 59, 0);
+
+    // Store in localStorage for consistency
+    const storedEnd = localStorage.getItem('sm_countdown_end');
+    let target;
+    if (storedEnd && new Date(storedEnd) > now) {
+        target = new Date(storedEnd);
+    } else {
+        target = end;
+        localStorage.setItem('sm_countdown_end', end.toISOString());
+    }
+
+    function update() {
+        const diff = target - new Date();
+        if (diff <= 0) {
+            document.getElementById('countdownBar').style.display = 'none';
+            return;
+        }
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+        document.getElementById('cd-minutes').textContent = String(m).padStart(2, '0');
+        document.getElementById('cd-seconds').textContent = String(s).padStart(2, '0');
+    }
+
+    update();
+    setInterval(update, 1000);
+}
+
+// ===== MODULE ACCORDION =====
+function toggleModule(header) {
+    const item = header.closest('.module-item');
+    item.classList.toggle('open');
+}
+
+// ===== FAQ ACCORDION =====
+function toggleFaq(q) {
+    const item = q.closest('.faq-item');
+    item.classList.toggle('open');
+}
+
+// ===== SCROLL ANIMATIONS =====
+function initScrollAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+}
+
+// ===== TOPBAR SCROLL =====
+window.addEventListener('scroll', () => {
+    const tb = document.getElementById('topbar');
+    if (window.scrollY > 100) {
+        tb.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+    } else {
+        tb.style.boxShadow = 'none';
+    }
+});
+
+// ===== SMOOTH SCROLL =====
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
+
+// ===== ENTER KEY FOR COUPON =====
+document.getElementById('couponInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') applyCoupon();
+});
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+    startCountdown();
+    initScrollAnimations();
+
+    // Check URL params for coupon
+    const params = new URLSearchParams(window.location.search);
+    const couponParam = params.get('coupon') || params.get('code');
+    if (couponParam) {
+        document.getElementById('couponInput').value = couponParam;
+        setTimeout(applyCoupon, 500);
+    }
+});
+
+// ===== SHAKE ANIMATION =====
+const style = document.createElement('style');
+style.textContent = `@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }`;
+document.head.appendChild(style);
+</script>
+
+</body>
+</html>

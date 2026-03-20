@@ -1,0 +1,367 @@
+{
+  "system": "selling_master_automation",
+  "version": "1.0.0",
+  "created": "2026-03-21",
+  "description": "מערכת אוטומציות לקורס סלינג מאסטר",
+
+  "integrations": {
+    "rivhit": {
+      "enabled": true,
+      "use": "חשבוניות אוטומטיות",
+      "document_type_invoice": 2,
+      "notes": "חשבונית מס קבלה (type 2) - תיווצר אוטומטית עם הרכישה"
+    },
+    "whatsapp_green_api": {
+      "enabled": true,
+      "use": "הודעות וואטסאפ אוטומטיות",
+      "sender": "0549922492",
+      "scripts_path": "C:\\Users\\DELL\\ymarket\\crm-app\\src\\lib\\whatsapp"
+    },
+    "inforu_sms": {
+      "enabled": true,
+      "use": "SMS אישורים ותזכורות",
+      "sender_name": "YMarket",
+      "endpoint": "https://capi.inforu.co.il/api/v2/SMS/SendSms"
+    },
+    "email": {
+      "enabled": true,
+      "use": "רצפי מיילים",
+      "provider": "sendinblue_or_mailchimp",
+      "from_email": "course@ymarket.co.il",
+      "from_name": "יובל | סלינג מאסטר"
+    }
+  },
+
+  "coupons": {
+    "FACEBOOK50": {
+      "type": "percentage",
+      "discount": 50,
+      "final_price": 1490,
+      "max_uses": 500,
+      "current_uses": 0,
+      "expires_days_from_launch": 90,
+      "source": "facebook_ads",
+      "active": true
+    },
+    "LAUNCH30": {
+      "type": "percentage",
+      "discount": 30,
+      "final_price": 2030,
+      "max_uses": null,
+      "current_uses": 0,
+      "expires_days_from_launch": 30,
+      "source": "email_marketing",
+      "active": true
+    },
+    "VIP100": {
+      "type": "fixed_amount",
+      "discount": 100,
+      "final_price": 2800,
+      "max_uses": null,
+      "current_uses": 0,
+      "expires_days_from_launch": null,
+      "source": "whatsapp_existing_customers",
+      "active": true
+    }
+  },
+
+  "triggers": {
+    "on_purchase": {
+      "description": "מתבצע מיד אחרי רכישה מוצלחת",
+      "actions": [
+        {
+          "id": "purchase_whatsapp_welcome",
+          "type": "whatsapp",
+          "delay_minutes": 0,
+          "template": "purchase_welcome",
+          "message_he": "שלום {customer_name}! 🎉\nברוכים הבאים לסלינג מאסטר!\n\nהגישה שלך לקורס מוכנה:\n{course_access_link}\n\nחשבונית נשלחה למייל שלך.\n\nיובל כאן - אם יש שאלות, אני זמין!",
+          "variables": ["customer_name", "course_access_link"]
+        },
+        {
+          "id": "purchase_sms_confirmation",
+          "type": "sms",
+          "delay_minutes": 1,
+          "template": "purchase_confirmation",
+          "message_he": "תודה {customer_name}! הרכישה בוצעה בהצלחה. גישה לקורס: {course_access_link}",
+          "variables": ["customer_name", "course_access_link"]
+        },
+        {
+          "id": "purchase_invoice",
+          "type": "rivhit",
+          "delay_minutes": 0,
+          "action": "create_invoice",
+          "document_type": 2,
+          "item_description": "קורס סלינג מאסטר - מכירות באינטרנט",
+          "notes": "גישה דיגיטלית - ללא החזרות אחרי צפייה"
+        },
+        {
+          "id": "purchase_email_welcome",
+          "type": "email",
+          "delay_minutes": 5,
+          "template": "welcome_email",
+          "subject_he": "ברוכים הבאים לסלינג מאסטר! 🚀 הגישה שלך מוכנה",
+          "includes": ["course_link", "community_link", "first_lesson_link", "workbook_pdf"]
+        }
+      ]
+    },
+
+    "on_lead_signup": {
+      "description": "מתבצע כשליד משאיר פרטים (ליד מגנט)",
+      "actions": [
+        {
+          "id": "lead_email_guide",
+          "type": "email",
+          "delay_minutes": 0,
+          "template": "lead_magnet_delivery",
+          "subject_he": "הנה המדריך שביקשת - 7 צעדים לעסק אונליין",
+          "includes": ["pdf_guide_link"]
+        },
+        {
+          "id": "lead_whatsapp_intro",
+          "type": "whatsapp",
+          "delay_minutes": 30,
+          "template": "lead_intro",
+          "message_he": "היי {customer_name}, יובל מסלינג מאסטר 👋\nראיתי שהורדת את המדריך - מעולה!\nמה העסק שלך? אשמח לעזור.",
+          "variables": ["customer_name"]
+        }
+      ]
+    },
+
+    "on_cart_abandonment": {
+      "description": "מתבצע כשגולש מתחיל תשלום ולא משלים",
+      "actions": [
+        {
+          "id": "abandon_whatsapp_30min",
+          "type": "whatsapp",
+          "delay_minutes": 30,
+          "template": "cart_abandon_soft",
+          "message_he": "היי {customer_name}, שמתי לב שלא סיימת את הרישום לקורס.\nיש שאלות? אני כאן לעזור 😊",
+          "variables": ["customer_name"]
+        },
+        {
+          "id": "abandon_email_2hr",
+          "type": "email",
+          "delay_minutes": 120,
+          "template": "cart_abandon_email",
+          "subject_he": "השארת משהו מאחור... 🛒",
+          "includes": ["cart_recovery_link", "course_highlights"]
+        },
+        {
+          "id": "abandon_sms_24hr",
+          "type": "sms",
+          "delay_minutes": 1440,
+          "template": "cart_abandon_sms",
+          "message_he": "היי {customer_name}, הקורס מחכה לך! קופון FACEBOOK50 פעיל עוד 48 שעות. {sales_page_link}",
+          "variables": ["customer_name", "sales_page_link"]
+        },
+        {
+          "id": "abandon_email_48hr",
+          "type": "email",
+          "delay_minutes": 2880,
+          "template": "cart_abandon_urgency",
+          "subject_he": "הזדמנות אחרונה - 50% הנחה רק עד היום",
+          "includes": ["cart_recovery_link", "coupon_code", "countdown"]
+        }
+      ]
+    },
+
+    "post_purchase_drip": {
+      "description": "רצף מיילים אחרי רכישה - עידוד ללמוד",
+      "actions": [
+        {
+          "id": "drip_day1",
+          "type": "email",
+          "delay_days": 1,
+          "template": "drip_day1_tip",
+          "subject_he": "טיפ מהיר ליום הראשון שלך בקורס"
+        },
+        {
+          "id": "drip_day1_whatsapp",
+          "type": "whatsapp",
+          "delay_days": 1,
+          "template": "drip_day1_wa",
+          "message_he": "בוקר טוב {customer_name}!\nטיפ ליום הראשון:\nתתחילו משיעור 1.1 ותמלאו את חוברת העבודה.\nזה הבסיס לכל מה שיבוא אחר כך 💪",
+          "variables": ["customer_name"]
+        },
+        {
+          "id": "drip_day3",
+          "type": "whatsapp",
+          "delay_days": 3,
+          "template": "drip_day3_checkin",
+          "message_he": "מה נשמע {customer_name}?\nכבר התחלתם? יש שאלות?\nאל תשכחו - מפגש Q&A ב-{next_qa_date} בשעה 20:00",
+          "variables": ["customer_name", "next_qa_date"]
+        },
+        {
+          "id": "drip_day7",
+          "type": "email",
+          "delay_days": 7,
+          "template": "drip_week1_summary",
+          "subject_he": "שבוע ראשון! איך הולך?"
+        },
+        {
+          "id": "drip_day7_whatsapp",
+          "type": "whatsapp",
+          "delay_days": 7,
+          "template": "drip_week1_wa",
+          "message_he": "שבוע ראשון! 🎯\nאם סיימתם את מודול 1 - כל הכבוד!\nאם לא - לא נורא, כל אחד בקצב שלו.\nהנה סיכום מודול 1 ב-2 דקות: {module1_summary_link}",
+          "variables": ["customer_name", "module1_summary_link"]
+        },
+        {
+          "id": "drip_day14",
+          "type": "email",
+          "delay_days": 14,
+          "template": "drip_week2_bonus",
+          "subject_he": "טיפ בונוס שלא נמצא בקורס 🎁"
+        },
+        {
+          "id": "drip_day30",
+          "type": "email",
+          "delay_days": 30,
+          "template": "drip_month1_review",
+          "subject_he": "חודש אחד! בואו נעשה סיכום"
+        },
+        {
+          "id": "drip_day30_review_request",
+          "type": "whatsapp",
+          "delay_days": 30,
+          "template": "review_request",
+          "message_he": "היי {customer_name}, חודש מאז שהצטרפת! 🎊\nאיך הקורס? אשמח לשמוע מה חשבת.\nאם תוכל/י לכתוב ביקורת קצרה זה יעזור מאוד: {review_link}",
+          "variables": ["customer_name", "review_link"]
+        }
+      ]
+    },
+
+    "post_purchase_upsell": {
+      "description": "רצף אפסייל - מוצרים נוספים",
+      "actions": [
+        {
+          "id": "upsell_day60",
+          "type": "email",
+          "delay_days": 60,
+          "template": "upsell_pro_course",
+          "subject_he": "מוכנים לשלב הבא? סלינג מאסטר PRO",
+          "condition": "completed_module_4_or_more"
+        },
+        {
+          "id": "upsell_day60_whatsapp",
+          "type": "whatsapp",
+          "delay_days": 60,
+          "template": "upsell_pro_wa",
+          "message_he": "היי {customer_name}, ראיתי שסיימת כבר 4 מודולים - וואו! 🔥\nיש לי משהו מיוחד בשבילך - קורס PRO מתקדם עם אסטרטגיות סקיילינג.\nמעניין? אספר עוד.",
+          "variables": ["customer_name"],
+          "condition": "completed_module_4_or_more"
+        },
+        {
+          "id": "upsell_mentoring",
+          "type": "email",
+          "delay_days": 90,
+          "template": "upsell_mentoring",
+          "subject_he": "הצעה בלעדית: מנטורינג אישי איתי",
+          "condition": "completed_all_modules"
+        }
+      ]
+    },
+
+    "lead_nurture_sequence": {
+      "description": "רצף חימום לידים שהורידו ליד מגנט",
+      "actions": [
+        {
+          "id": "nurture_day1",
+          "type": "email",
+          "delay_days": 1,
+          "template": "nurture_story",
+          "subject_he": "הטעות שעלתה לי 50,000 ש\"ח"
+        },
+        {
+          "id": "nurture_day3",
+          "type": "email",
+          "delay_days": 3,
+          "template": "nurture_products",
+          "subject_he": "3 מוצרים שמכרו מיליון השנה - ניתוח"
+        },
+        {
+          "id": "nurture_day5",
+          "type": "email",
+          "delay_days": 5,
+          "template": "nurture_quiz",
+          "subject_he": "האם מכירות אונליין מתאימות לך? (קוויז 2 דק')"
+        },
+        {
+          "id": "nurture_day5_whatsapp",
+          "type": "whatsapp",
+          "delay_days": 5,
+          "template": "nurture_followup_wa",
+          "message_he": "היי {customer_name}, קראת את המדריך?\nאשמח לשמוע - מה העסק שאתה חולם עליו? 🤔",
+          "variables": ["customer_name"]
+        },
+        {
+          "id": "nurture_day7",
+          "type": "email",
+          "delay_days": 7,
+          "template": "nurture_offer",
+          "subject_he": "הזמנה אישית: הצטרפו לסלינג מאסטר ב-50% הנחה"
+        },
+        {
+          "id": "nurture_day7_whatsapp",
+          "type": "whatsapp",
+          "delay_days": 7,
+          "template": "nurture_offer_wa",
+          "message_he": "{customer_name}, יש לי הצעה מיוחדת:\nהקורס המלא 'סלינג מאסטר' ב-1,490₪ במקום 2,900₪\nקופון: FACEBOOK50\nל-500 ראשונים בלבד.\nלפרטים: {sales_page_link}",
+          "variables": ["customer_name", "sales_page_link"]
+        },
+        {
+          "id": "nurture_day9",
+          "type": "email",
+          "delay_days": 9,
+          "template": "nurture_faq",
+          "subject_he": "שאלות ותשובות - מה ששואלים הכי הרבה"
+        },
+        {
+          "id": "nurture_day12",
+          "type": "email",
+          "delay_days": 12,
+          "template": "nurture_last_chance",
+          "subject_he": "אחרון - המחיר עולה בעוד 48 שעות ⏰"
+        }
+      ]
+    }
+  },
+
+  "notifications": {
+    "admin_on_purchase": {
+      "type": "whatsapp",
+      "recipient": "0544567610",
+      "message_he": "💰 מכירה חדשה!\nלקוח: {customer_name}\nמחיר: {amount}₪\nקופון: {coupon_used}\nטלפון: {customer_phone}"
+    },
+    "admin_on_lead": {
+      "type": "sms",
+      "recipient": "0544567610",
+      "message_he": "ליד חדש: {customer_name} | {customer_phone} | {customer_business}"
+    },
+    "admin_daily_summary": {
+      "type": "email",
+      "recipient": "yuval@ymarket.co.il",
+      "schedule": "daily_21:00",
+      "subject_he": "סיכום יומי - סלינג מאסטר",
+      "includes": ["sales_count", "revenue", "leads_count", "active_students"]
+    }
+  },
+
+  "settings": {
+    "timezone": "Asia/Jerusalem",
+    "language": "he",
+    "currency": "ILS",
+    "business_hours": {
+      "start": "08:00",
+      "end": "21:00",
+      "days": ["sunday", "monday", "tuesday", "wednesday", "thursday"]
+    },
+    "whatsapp_quiet_hours": {
+      "start": "22:00",
+      "end": "07:00",
+      "note": "הודעות שמתוזמנות לשעות שקטות יידחו לבוקר"
+    },
+    "sms_daily_limit": 50,
+    "whatsapp_daily_limit": 30
+  }
+}
