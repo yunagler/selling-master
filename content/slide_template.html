@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>Selling Master - Slide Template</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1B2D4A;
+            --navy-light: #2A4060;
+            --gold: #EEB332;
+            --gold-light: #F5CC66;
+            --white: #FFFFFF;
+            --text-secondary: #B0C4DE;
+            --text-dim: #6B8299;
+            --slide-width: 1920px;
+            --slide-height: 1080px;
+        }
+
+        body {
+            font-family: 'Heebo', Arial, sans-serif;
+            background: #000;
+            overflow: hidden;
+            direction: rtl;
+        }
+
+        /* ===== Slide Container ===== */
+        .slides-wrapper {
+            position: relative;
+            width: var(--slide-width);
+            height: var(--slide-height);
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: var(--slide-width);
+            height: var(--slide-height);
+            padding: 80px 100px;
+            display: none;
+            flex-direction: column;
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-mid) 100%);
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        /* ===== Background Decorations ===== */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            left: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(238, 179, 50, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .slide::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(238, 179, 50, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* ===== Top Bar (logo + lesson info) ===== */
+        .top-bar {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(238, 179, 50, 0.15);
+            z-index: 10;
+        }
+
+        .top-bar .brand {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        .top-bar .lesson-info {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* ===== Avatar Presenter ===== */
+        .avatar-container {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--gold);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            z-index: 20;
+        }
+
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ===== Progress Bar ===== */
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 10;
+        }
+
+        .progress-bar .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            transition: width 0.3s ease;
+        }
+
+        /* ===== Slide Counter ===== */
+        .slide-counter {
+            position: absolute;
+            bottom: 15px;
+            right: 40px;
+            font-size: 14px;
+            color: var(--text-dim);
+            z-index: 10;
+        }
+
+        /* ===== TITLE SLIDE ===== */
+        .slide.slide-title {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        .slide-title .module-badge {
+            display: inline-block;
+            padding: 8px 24px;
+            background: rgba(238, 179, 50, 0.15);
+            border: 1px solid var(--gold);
+            border-radius: 30px;
+            font-size: 18px;
+            color: var(--gold);
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .slide-title h1 {
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--white) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .slide-title .subtitle {
+            font-size: 28px;
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 800px;
+        }
+
+        .slide-title .divider {
+            width: 120px;
+            height: 4px;
+            background: var(--gold);
+            margin: 30px auto;
+            border-radius: 2px;
+        }
+
+        /* ===== CONTENT / BULLETS SLIDE ===== */
+        .slide.slide-bullets {
+            padding-top: 120px;
+        }
+
+        .slide-bullets h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--white);
+        }
+
+        .slide-bullets .title-underline {
+            width: 80px;
+            height: 4px;
+            background: var(--gold);
+            margin-bottom: 50px;
+            border-radius: 2px;
+        }
+
+        .slide-bullets .bullets-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 1400px;
+        }
+
+        .slide-bullets .bullets-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            font-size: 30px;
+            font-weight: 400;
+            color: var(--white);
+            line-height: 1.5;
+        }
+
+        .slide-bullets .bullets-list li .bullet-icon {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            background: rgba(238, 179, 50, 0.2);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--gold);
+            margin-top: 4px;
+        }
+
+        .slide-bullets .bullets-list li .bullet-text strong {
+            color: var(--gold);
+        }
+
+        /* ===== IMAGE SLIDE ===== */
+        .slide.slide-image {
+            padding-top: 120px;
+        }
+
+        .slide-image h2 {
+            font-size: 44px;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+
+        .slide-image .image-frame {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .slide-image .image-frame img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(238, 179, 50, 0.2);
+        }
+
+        .slide-image .caption {
+            font-size: 20px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        /* ===== TWO-COLUMN SLIDE ===== */
+        .slide.slide-two-column {
+            padding-top: 120px;
+        }
+
+        .slide-two-column h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .slide-two-column .title-underline {
+            width: 80px;
+            height: 4px;
+            background: var(--gold);
+            margin-bottom: 50px;
+            border-radius: 2px;
+        }
+
+        .slide-two-column .columns {
+            display: flex;
+            gap: 60px;
+            flex: 1;
+        }
+
+        .slide-two-column .column {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .slide-two-column .column h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid rgba(238, 179, 50, 0.3);
+        }
+
+        .slide-two-column .column ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .slide-two-column .column li {
+            font-size: 24px;
+            color: var(--white);
+            padding-right: 20px;
+            position: relative;
+        }
+
+        .slide-two-column .column li::before {
+            content: '\25C6';
+            position: absolute;
+            right: 0;
+            color: var(--gold);
+            font-size: 12px;
+            top: 6px;
+        }
+
+        /* ===== QUOTE SLIDE ===== */
+        .slide.slide-quote {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide-quote .quote-mark {
+            font-size: 120px;
+            color: var(--gold);
+            opacity: 0.3;
+            line-height: 0.5;
+            margin-bottom: 20px;
+        }
+
+        .slide-quote blockquote {
+            font-size: 44px;
+            font-weight: 300;
+            line-height: 1.6;
+            max-width: 1200px;
+            color: var(--white);
+            margin-bottom: 30px;
+        }
+
+        .slide-quote .quote-author {
+            font-size: 22px;
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        /* ===== EXAMPLE / CODE SLIDE ===== */
+        .slide.slide-example {
+            padding-top: 120px;
+        }
+
+        .slide-example h2 {
+            font-size: 44px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .slide-example .title-underline {
+            width: 80px;
+            height: 4px;
+            background: var(--gold);
+            margin-bottom: 40px;
+            border-radius: 2px;
+        }
+
+        .slide-example .example-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(238, 179, 50, 0.2);
+            border-radius: 16px;
+            padding: 50px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide-example .example-box .label {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .slide-example .example-box .content {
+            font-size: 28px;
+            line-height: 1.8;
+            color: var(--white);
+            font-family: 'Heebo', monospace;
+        }
+
+        .slide-example .example-box .highlight {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        /* ===== EXERCISE SLIDE ===== */
+        .slide.slide-exercise {
+            padding-top: 120px;
+        }
+
+        .slide-exercise .exercise-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 24px;
+            background: rgba(238, 179, 50, 0.15);
+            border: 1px solid var(--gold);
+            border-radius: 8px;
+            font-size: 18px;
+            color: var(--gold);
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .slide-exercise h2 {
+            font-size: 44px;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+
+        .slide-exercise .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 1400px;
+        }
+
+        .slide-exercise .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            padding: 24px 30px;
+            border-right: 4px solid var(--gold);
+        }
+
+        .slide-exercise .step-number {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            background: var(--gold);
+            color: var(--navy-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .slide-exercise .step-text {
+            font-size: 26px;
+            color: var(--white);
+            line-height: 1.5;
+        }
+
+        /* ===== Section Divider Slide ===== */
+        .slide.slide-section {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--navy-dark) 0%, #0D1F38 50%, var(--navy-mid) 100%);
+        }
+
+        .slide-section .section-number {
+            font-size: 120px;
+            font-weight: 900;
+            color: var(--gold);
+            opacity: 0.2;
+            margin-bottom: -30px;
+        }
+
+        .slide-section h2 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .slide-section .section-subtitle {
+            font-size: 24px;
+            color: var(--text-secondary);
+        }
+
+        /* ===== Print / Export ===== */
+        @media print {
+            body {
+                background: white;
+            }
+            .slides-wrapper {
+                width: 100%;
+                height: auto;
+            }
+            .slide {
+                position: relative;
+                display: flex !important;
+                page-break-after: always;
+                width: 100%;
+                height: 100vh;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+            .slide-counter, .progress-bar {
+                display: none;
+            }
+        }
+
+        /* ===== Navigation Hints ===== */
+        .nav-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 13px;
+            color: var(--text-dim);
+            z-index: 100;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .nav-hint:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="slides-wrapper" id="slidesWrapper">
+
+    <!-- Top Bar (shared across slides) -->
+    <div class="top-bar">
+        <span class="brand">SELLING MASTER</span>
+        <span class="lesson-info" id="lessonInfo">מודול 1 | שיעור 1.1</span>
+    </div>
+
+    <!-- Avatar Presenter -->
+    <div class="avatar-container">
+        <img src="../avatar_presenter_closeup.png" alt="Presenter" id="avatarImg">
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress" id="progressBar"></div>
+    </div>
+
+    <!-- Slide Counter -->
+    <div class="slide-counter" id="slideCounter"></div>
+
+    <!-- ===== SLIDE 1: Title ===== -->
+    <div class="slide slide-title active" data-type="title">
+        <div class="module-badge">מודול 1 - היסודות</div>
+        <h1>ברוכים הבאים ל-Selling Master</h1>
+        <div class="divider"></div>
+        <p class="subtitle">איך להפיק מקסימום מהקורס הזה</p>
+    </div>
+
+    <!-- ===== SLIDE 2: Bullets ===== -->
+    <div class="slide slide-bullets" data-type="bullets">
+        <h2>מה נלמד היום</h2>
+        <div class="title-underline"></div>
+        <ul class="bullets-list">
+            <li>
+                <span class="bullet-icon">1</span>
+                <span class="bullet-text"><strong>מבנה הקורס</strong> - 6 מודולים מהיסודות ועד למכירות מתקדמות</span>
+            </li>
+            <li>
+                <span class="bullet-icon">2</span>
+                <span class="bullet-text"><strong>איך ללמוד נכון</strong> - טיפים למקסום הזמן והתרגול</span>
+            </li>
+            <li>
+                <span class="bullet-icon">3</span>
+                <span class="bullet-text"><strong>הקהילה שלנו</strong> - תמיכה, שיתוף ונטוורקינג</span>
+            </li>
+            <li>
+                <span class="bullet-icon">4</span>
+                <span class="bullet-text"><strong>ציפיות ריאליסטיות</strong> - מה אפשר להשיג ובכמה זמן</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- ===== SLIDE 3: Two Column ===== -->
+    <div class="slide slide-two-column" data-type="two-column">
+        <h2>מוצר פיזי לעומת מוצר דיגיטלי</h2>
+        <div class="title-underline"></div>
+        <div class="columns">
+            <div class="column">
+                <h3>מוצר פיזי</h3>
+                <ul>
+                    <li>מלאי ולוגיסטיקה</li>
+                    <li>שליחויות ואריזה</li>
+                    <li>מרגש ללקוח - חוויה מוחשית</li>
+                    <li>אפשרויות מיתוג רחבות</li>
+                    <li>החזרות וטיפול בתקלות</li>
+                </ul>
+            </div>
+            <div class="column">
+                <h3>מוצר דיגיטלי</h3>
+                <ul>
+                    <li>ללא מלאי - רווח נקי גבוה</li>
+                    <li>משלוח מיידי - אוטומטי</li>
+                    <li>אפשר למכור שוב ושוב</li>
+                    <li>עלויות הפקה חד פעמיות</li>
+                    <li>תחרות גבוהה + פיראטיות</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SLIDE 4: Quote ===== -->
+    <div class="slide slide-quote" data-type="quote">
+        <div class="quote-mark">"</div>
+        <blockquote>ההבדל בין מי שמצליח למי שלא - זה לא הכישרון. זה ההתמדה והנכונות ללמוד מטעויות.</blockquote>
+        <div class="quote-author">- יובל נגלר, Selling Master</div>
+    </div>
+
+    <!-- ===== SLIDE 5: Example ===== -->
+    <div class="slide slide-example" data-type="example">
+        <h2>דוגמה: חישוב רווחיות מוצר</h2>
+        <div class="title-underline"></div>
+        <div class="example-box">
+            <div class="label">EXAMPLE</div>
+            <div class="content">
+                מחיר מכירה: <span class="highlight">149 ש"ח</span><br>
+                עלות מוצר: 35 ש"ח<br>
+                עלות משלוח: 15 ש"ח<br>
+                עמלת פלטפורמה (3%): 4.5 ש"ח<br>
+                עלות פרסום: 25 ש"ח<br>
+                ─────────────<br>
+                <strong>רווח נקי: <span class="highlight">69.5 ש"ח</span> (מרווח 46.6%)</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SLIDE 6: Image ===== -->
+    <div class="slide slide-image" data-type="image">
+        <h2>משפך המכירה</h2>
+        <div class="image-frame">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500' fill='%231B2D4A'%3E%3Crect width='800' height='500' rx='16'/%3E%3Ctext x='400' y='250' fill='%23EEB332' font-size='24' text-anchor='middle'%3EPlaceholder Image%3C/text%3E%3C/svg%3E" alt="Sales Funnel Diagram">
+        </div>
+        <p class="caption">תמונה: משפך מכירה טיפוסי - מודעות ← עניין ← שיקול ← רכישה</p>
+    </div>
+
+    <!-- ===== SLIDE 7: Exercise ===== -->
+    <div class="slide slide-exercise" data-type="exercise">
+        <div class="exercise-badge">&#9998; תרגיל מעשי</div>
+        <h2>בנו את תוכנית העסק שלכם</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-text">בחרו נישה אחת שמעניינת אתכם ורשמו 3 סיבות למה</div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-text">מצאו 3 מתחרים בנישה הזו וניתחו את המחירים שלהם</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-text">חשבו את הרווחיות המשוערת עם המחשבון שקיבלתם</div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-text">שתפו את התוצאות בקהילה וקבלו פידבק</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SLIDE 8: Section Divider ===== -->
+    <div class="slide slide-section" data-type="section">
+        <div class="section-number">02</div>
+        <h2>מציאת מוצרים וספקים</h2>
+        <p class="section-subtitle">המוצר הנכון = חצי מההצלחה</p>
+    </div>
+
+</div>
+
+<!-- Navigation Hint -->
+<div class="nav-hint">Arrow keys to navigate | F for fullscreen | P for print mode</div>
+
+<script>
+(function() {
+    // ===== Slide Navigation =====
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+        slides[currentSlide].classList.remove('active');
+        currentSlide = index;
+        slides[currentSlide].classList.add('active');
+        updateUI();
+    }
+
+    function nextSlide() {
+        showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+        showSlide(currentSlide - 1);
+    }
+
+    function updateUI() {
+        // Update counter
+        const counter = document.getElementById('slideCounter');
+        counter.textContent = (currentSlide + 1) + ' / ' + totalSlides;
+
+        // Update progress bar
+        const progress = document.getElementById('progressBar');
+        progress.style.width = ((currentSlide + 1) / totalSlides * 100) + '%';
+    }
+
+    // ===== Keyboard Navigation =====
+    document.addEventListener('keydown', function(e) {
+        switch(e.key) {
+            case 'ArrowLeft':
+            case 'ArrowDown':
+            case ' ':
+            case 'PageDown':
+                e.preventDefault();
+                nextSlide();
+                break;
+            case 'ArrowRight':
+            case 'ArrowUp':
+            case 'PageUp':
+                e.preventDefault();
+                prevSlide();
+                break;
+            case 'Home':
+                e.preventDefault();
+                showSlide(0);
+                break;
+            case 'End':
+                e.preventDefault();
+                showSlide(totalSlides - 1);
+                break;
+            case 'f':
+            case 'F':
+                e.preventDefault();
+                toggleFullscreen();
+                break;
+            case 'p':
+            case 'P':
+                e.preventDefault();
+                window.print();
+                break;
+        }
+    });
+
+    // ===== Click Navigation =====
+    document.querySelector('.slides-wrapper').addEventListener('click', function(e) {
+        const rect = this.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        if (clickX < rect.width / 2) {
+            prevSlide(); // Click left half = previous (RTL)
+        } else {
+            nextSlide(); // Click right half = next (RTL)
+        }
+    });
+
+    // ===== Touch Navigation =====
+    let touchStartX = 0;
+    document.addEventListener('touchstart', function(e) {
+        touchStartX = e.touches[0].clientX;
+    });
+    document.addEventListener('touchend', function(e) {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) nextSlide(); // Swipe left = next
+            else prevSlide();
+        }
+    });
+
+    // ===== Fullscreen =====
+    function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
+    }
+
+    // ===== Initialize =====
+    updateUI();
+
+    // ===== Expose API for automation =====
+    window.slideAPI = {
+        next: nextSlide,
+        prev: prevSlide,
+        goto: showSlide,
+        total: totalSlides,
+        current: function() { return currentSlide; }
+    };
+})();
+</script>
+
+</body>
+</html>

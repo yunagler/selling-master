@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>שיעור 1.1: ברוכים הבאים לקורס &quot;מאסטר מכירות&quot; - Selling Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1B2D4A;
+            --navy-light: #2A4060;
+            --gold: #EEB332;
+            --gold-light: #F5CC66;
+            --white: #FFFFFF;
+            --text-secondary: #B0C4DE;
+            --text-dim: #6B8299;
+        }
+
+        body {
+            font-family: 'Heebo', Arial, sans-serif;
+            background: #000;
+            overflow: hidden;
+            direction: rtl;
+        }
+
+        .slides-wrapper {
+            position: relative;
+            width: 1920px;
+            height: 1080px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0; right: 0;
+            width: 1920px; height: 1080px;
+            padding: 80px 100px;
+            display: none;
+            flex-direction: column;
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-mid) 100%);
+            color: var(--white);
+            overflow: hidden;
+        }
+        .slide.active { display: flex; }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: -200px; left: -200px;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(238,179,50,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .top-bar {
+            position: absolute;
+            top: 0; right: 0; left: 0;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(238,179,50,0.15);
+            z-index: 10;
+        }
+        .top-bar .brand { font-size: 18px; font-weight: 700; color: var(--gold); letter-spacing: 1px; }
+        .top-bar .lesson-info { font-size: 14px; color: var(--text-secondary); }
+
+        .avatar-container {
+            position: absolute;
+            bottom: 30px; left: 30px;
+            width: 160px; height: 160px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--gold);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            z-index: 20;
+        }
+        .avatar-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        .progress-bar {
+            position: absolute;
+            bottom: 0; right: 0; left: 0;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            z-index: 10;
+        }
+        .progress-bar .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            transition: width 0.3s ease;
+        }
+
+        .slide-counter {
+            position: absolute;
+            bottom: 15px; right: 40px;
+            font-size: 14px; color: var(--text-dim);
+            z-index: 10;
+        }
+
+        /* Title slide */
+        .slide.slide-title { justify-content: center; align-items: center; text-align: center; padding-top: 100px; }
+        .slide-title .module-badge {
+            display: inline-block; padding: 8px 24px;
+            background: rgba(238,179,50,0.15); border: 1px solid var(--gold);
+            border-radius: 30px; font-size: 18px; color: var(--gold);
+            margin-bottom: 30px; font-weight: 500;
+        }
+        .slide-title h1 {
+            font-size: 72px; font-weight: 900; line-height: 1.2; margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--white) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .slide-title .subtitle { font-size: 28px; color: var(--text-secondary); font-weight: 300; max-width: 800px; }
+        .slide-title .divider { width: 120px; height: 4px; background: var(--gold); margin: 30px auto; border-radius: 2px; }
+
+        /* Bullets slide */
+        .slide.slide-bullets { padding-top: 120px; }
+        .slide-bullets h2 { font-size: 48px; font-weight: 700; margin-bottom: 10px; }
+        .slide-bullets .title-underline { width: 80px; height: 4px; background: var(--gold); margin-bottom: 50px; border-radius: 2px; }
+        .slide-bullets .bullets-list { list-style: none; display: flex; flex-direction: column; gap: 24px; max-width: 1400px; }
+        .slide-bullets .bullets-list li { display: flex; align-items: flex-start; gap: 20px; font-size: 30px; line-height: 1.5; }
+        .slide-bullets .bullets-list li .bullet-icon {
+            flex-shrink: 0; width: 36px; height: 36px;
+            background: rgba(238,179,50,0.2); border: 2px solid var(--gold);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 18px; color: var(--gold); margin-top: 4px;
+        }
+        .slide-bullets .bullets-list li .bullet-text strong { color: var(--gold); }
+
+        /* Two-column slide */
+        .slide.slide-two-column { padding-top: 120px; }
+        .slide-two-column h2 { font-size: 48px; font-weight: 700; margin-bottom: 10px; }
+        .slide-two-column .title-underline { width: 80px; height: 4px; background: var(--gold); margin-bottom: 50px; border-radius: 2px; }
+        .slide-two-column .columns { display: flex; gap: 60px; flex: 1; }
+        .slide-two-column .column {
+            flex: 1; background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px; padding: 40px;
+        }
+        .slide-two-column .column h3 {
+            font-size: 28px; font-weight: 700; color: var(--gold);
+            margin-bottom: 24px; padding-bottom: 16px;
+            border-bottom: 2px solid rgba(238,179,50,0.3);
+        }
+        .slide-two-column .column ul { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+        .slide-two-column .column li { font-size: 24px; padding-right: 20px; position: relative; }
+        .slide-two-column .column li::before {
+            content: '\25C6'; position: absolute; right: 0;
+            color: var(--gold); font-size: 12px; top: 6px;
+        }
+
+        /* Quote slide */
+        .slide.slide-quote { justify-content: center; align-items: center; text-align: center; }
+        .slide-quote .quote-mark { font-size: 120px; color: var(--gold); opacity: 0.3; line-height: 0.5; margin-bottom: 20px; }
+        .slide-quote blockquote { font-size: 44px; font-weight: 300; line-height: 1.6; max-width: 1200px; margin-bottom: 30px; }
+        .slide-quote .quote-author { font-size: 22px; color: var(--gold); font-weight: 500; }
+
+        /* Example slide */
+        .slide.slide-example { padding-top: 120px; }
+        .slide-example h2 { font-size: 44px; font-weight: 700; margin-bottom: 10px; }
+        .slide-example .title-underline { width: 80px; height: 4px; background: var(--gold); margin-bottom: 40px; border-radius: 2px; }
+        .slide-example .example-box {
+            background: rgba(0,0,0,0.3); border: 1px solid rgba(238,179,50,0.2);
+            border-radius: 16px; padding: 50px; flex: 1;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .slide-example .example-box .label { font-size: 16px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+        .slide-example .example-box .content { font-size: 28px; line-height: 1.8; }
+        .slide-example .example-box .highlight { color: var(--gold); font-weight: 700; }
+
+        /* Exercise slide */
+        .slide.slide-exercise { padding-top: 120px; }
+        .slide-exercise .exercise-badge {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 10px 24px; background: rgba(238,179,50,0.15);
+            border: 1px solid var(--gold); border-radius: 8px;
+            font-size: 18px; color: var(--gold); margin-bottom: 30px; font-weight: 700;
+        }
+        .slide-exercise h2 { font-size: 44px; font-weight: 700; margin-bottom: 40px; }
+        .slide-exercise .steps { display: flex; flex-direction: column; gap: 20px; max-width: 1400px; }
+        .slide-exercise .step {
+            display: flex; align-items: flex-start; gap: 20px;
+            background: rgba(255,255,255,0.04); border-radius: 12px;
+            padding: 24px 30px; border-right: 4px solid var(--gold);
+        }
+        .slide-exercise .step-number {
+            flex-shrink: 0; width: 44px; height: 44px;
+            background: var(--gold); color: var(--navy-dark); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; font-weight: 900;
+        }
+        .slide-exercise .step-text { font-size: 26px; line-height: 1.5; }
+
+        /* Image slide */
+        .slide.slide-image { padding-top: 120px; }
+        .slide-image h2 { font-size: 44px; font-weight: 700; margin-bottom: 40px; }
+        .slide-image .image-frame { flex: 1; display: flex; align-items: center; justify-content: center; margin-bottom: 40px; }
+        .slide-image .image-frame img { max-width: 100%; max-height: 100%; border-radius: 16px; box-shadow: 0 8px 40px rgba(0,0,0,0.4); border: 2px solid rgba(238,179,50,0.2); }
+        .slide-image .caption { font-size: 20px; color: var(--text-secondary); text-align: center; }
+
+        /* Section divider slide */
+        .slide.slide-section {
+            justify-content: center; align-items: center; text-align: center;
+            background: linear-gradient(135deg, var(--navy-dark) 0%, #0D1F38 50%, var(--navy-mid) 100%);
+        }
+        .slide-section .section-number { font-size: 120px; font-weight: 900; color: var(--gold); opacity: 0.2; margin-bottom: -30px; }
+        .slide-section h2 { font-size: 56px; font-weight: 700; margin-bottom: 16px; }
+        .slide-section .section-subtitle { font-size: 24px; color: var(--text-secondary); }
+
+        /* Print */
+        @media print {
+            body { background: white; }
+            .slides-wrapper { width: 100%; height: auto; }
+            .slide { position: relative; display: flex !important; page-break-after: always; width: 100%; height: 100vh; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+            .slide-counter, .progress-bar { display: none; }
+        }
+
+        .nav-hint {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            font-size: 13px; color: var(--text-dim); z-index: 100; opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="slides-wrapper" id="slidesWrapper">
+    <div class="top-bar">
+        <span class="brand">SELLING MASTER</span>
+        <span class="lesson-info" id="lessonInfo">מודול 1 | שיעור 1.1</span>
+    </div>
+
+    <div class="avatar-container">
+        <img src="../avatar_presenter_closeup.png" alt="Presenter">
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress" id="progressBar"></div>
+    </div>
+
+    <div class="slide-counter" id="slideCounter"></div>
+
+
+    <div class="slide slide-title active" data-type="title">
+        
+        <h1>פתיחה</h1>
+        <div class="divider"></div>
+        <p class="subtitle">שקף פתיחה עם לוגו הקורס ושם המנחה</p>
+    </div>
+    <div class="slide slide-bullets" data-type="bullets">
+        <h2>מה הקורס הזה?</h2>
+        <div class="title-underline"></div>
+        <ul class="bullets-list">
+            <li>
+                <span class="bullet-icon">1</span>
+                <span class="bullet-text"><strong>מודול 1</strong> - שם אנחנו עכשיו - עוסק ביסודות. בחשיבה. לפני שמוכרים, צריך לחשוב נכון. להבין את השוק, להבין את המספרים, להבין את הלקוח. הרבה אנשים מדלגים על השלב הזה ואז תוהים למה הם לא מצליחים. אנחנו לא הולכים לעשות את הטעות הזאת</span>
+            </li>
+            <li>
+                <span class="bullet-icon">2</span>
+                <span class="bullet-text"><strong>מודול 2</strong> - בניית חנות אונליין. צעד אחרי צעד, בלי קוד, בלי כאב ראש. תצאו מהמודול הזה עם חנות עובדת</span>
+            </li>
+            <li>
+                <span class="bullet-icon">3</span>
+                <span class="bullet-text"><strong>מודול 3</strong> - שיווק דיגיטלי. פייסבוק, אינסטגרם, גוגל - איך מביאים אנשים לחנות שלכם</span>
+            </li>
+            <li>
+                <span class="bullet-icon">4</span>
+                <span class="bullet-text"><strong>מודול 4</strong> - אופטימיזציה של מכירות. איך לגרום ליותר אנשים שמגיעים לחנות באמת לקנות</span>
+            </li>
+            <li>
+                <span class="bullet-icon">5</span>
+                <span class="bullet-text"><strong>מודול 5</strong> - שירות לקוחות, לוגיסטיקה, וניהול יומיומי</span>
+            </li>
+            <li>
+                <span class="bullet-icon">6</span>
+                <span class="bullet-text"><strong>מודול 6</strong> - צמיחה וסקיילינג. איך לוקחים עסק שעובד ומגדילים אותו</span>
+            </li>
+        </ul>
+    </div>
+    <div class="slide slide-bullets" data-type="bullets">
+        <h2>למי הקורס מתאים</h2>
+        <div class="title-underline"></div>
+        <ul class="bullets-list">
+            <li>
+                <span class="bullet-icon">1</span>
+                <span class="bullet-text"><strong>סוג ראשון</strong> - מי שיש לו מוצר או שירות ורוצה להתחיל למכור אונליין. אולי יש לכם עסק פיזי ואתם רוצים להרחיב לדיגיטל. אולי אתם מייצרים משהו בבית ורוצים למכור את זה. מעולה, אתם במקום הנכון</span>
+            </li>
+            <li>
+                <span class="bullet-icon">2</span>
+                <span class="bullet-text"><strong>סוג שני</strong> - מי שרוצה להקים עסק אונליין מאפס. עדיין אין לכם מוצר, אין לכם רעיון ברור, אבל אתם יודעים שאתם רוצים לעבוד לעצמכם ולמכור באינטרנט. גם לכם יש פה מענה, כי אנחנו מתחילים מהיסודות - כולל בחירת נישה ומוצר</span>
+            </li>
+            <li>
+                <span class="bullet-icon">3</span>
+                <span class="bullet-text"><strong>סוג שלישי</strong> - מי שכבר מוכר אונליין אבל לא מרוצה מהתוצאות. המכירות נמוכות, העלויות גבוהות, ואתם מרגישים שאתם מסתובבים במקום. הקורס הזה ייתן לכם כלים מעשיים לשפר את מה שכבר יש</span>
+            </li>
+        </ul>
+    </div>
+    <div class="slide slide-bullets" data-type="bullets">
+        <h2>איך להפיק את המקסימום</h2>
+        <div class="title-underline"></div>
+        <ul class="bullets-list">
+            <li>
+                <span class="bullet-icon">1</span>
+                <span class="bullet-text"><strong>אחד: צפו בסדר.</strong> - המודולים בנויים בצורה מסודרת. שיעור 3 מתבסס על מה שלמדתם בשיעור 2. אל תדלגו</span>
+            </li>
+            <li>
+                <span class="bullet-icon">2</span>
+                <span class="bullet-text"><strong>שתיים: עשו את התרגילים.</strong> - בסוף כמעט כל שיעור יש תרגיל מעשי או משימה. אל תגידו &quot;אני אעשה את זה אחר כך.&quot; עשו את זה עכשיו. בזמן שהחומר טרי בראש. רוב ההבדל בין מי שמצליח למי שלא - הוא לא בצפייה, הוא ביישום</span>
+            </li>
+            <li>
+                <span class="bullet-icon">3</span>
+                <span class="bullet-text"><strong>שלוש: השתמשו בחוברות העבודה.</strong> - לכל מודול יש חוברת עבודה בפורמט PDF שאפשר להדפיס או למלא דיגיטלית. החוברות האלה הן הכלי שלכם. הן יעזרו לכם לארגן את המחשבות, לקבל החלטות, ולבנות את העסק שלכם צעד אחרי צעד</span>
+            </li>
+            <li>
+                <span class="bullet-icon">4</span>
+                <span class="bullet-text"><strong>ארבע: שאלו שאלות.</strong> - יש לנו קהילה סגורה - קבוצת תמיכה שבה אתם יכולים לשאול שאלות, לשתף התקדמות, לקבל פידבק. אני שם, חברי הקורס שם. אל תהיו לבד בתהליך הזה</span>
+            </li>
+            <li>
+                <span class="bullet-icon">5</span>
+                <span class="bullet-text"><strong>חמש: תנו לעצמכם זמן.</strong> - בניית עסק אונליין מצליח לא קורה ביום. לא בשבוע. לפעמים גם לא בחודש. אבל אם תתמידו, אם תיישמו את מה שתלמדו פה - התוצאות יגיעו. אני מבטיח</span>
+            </li>
+        </ul>
+    </div>
+    <div class="slide slide-bullets" data-type="bullets">
+        <h2>הכלים שלכם</h2>
+        <div class="title-underline"></div>
+        <ul class="bullets-list">
+            <li>
+                <span class="bullet-icon">1</span>
+                <span class="bullet-text"><strong>חוברות עבודה</strong> - לכל מודול חוברת מפורטת עם תרגילים, טמפלטים, ורשימות בדיקה</span>
+            </li>
+            <li>
+                <span class="bullet-icon">2</span>
+                <span class="bullet-text"><strong>קהילת תמיכה</strong> - קבוצה סגורה רק למשתתפי הקורס. מקום לשאול, לשתף, ולקבל תמיכה</span>
+            </li>
+            <li>
+                <span class="bullet-icon">3</span>
+                <span class="bullet-text"><strong>מפגשי Q&amp;A</strong> - פעם בחודש ניפגש בזום בשידור חי. תביאו שאלות, תביאו אתגרים, ונפתור ביחד</span>
+            </li>
+            <li>
+                <span class="bullet-icon">4</span>
+                <span class="bullet-text"><strong>תבניות ומשאבים</strong> - טמפלטים מוכנים לתוכנית עסקית, דפי נחיתה, מיילים, ועוד. חוסכים לכם שעות של עבודה</span>
+            </li>
+            <li>
+                <span class="bullet-icon">5</span>
+                <span class="bullet-text"><strong>עדכונים שוטפים</strong> - העולם הדיגיטלי משתנה מהר. הקורס מתעדכן בהתאם, ואתם מקבלים גישה לכל העדכונים</span>
+            </li>
+        </ul>
+    </div>
+    <div class="slide slide-title" data-type="title">
+        
+        <h1>מה לצפות מהמודול הראשון</h1>
+        <div class="divider"></div>
+        <p class="subtitle">תוכן מודול 1 - 10 שיעורים</p>
+    </div>
+    <div class="slide slide-title" data-type="title">
+        
+        <h1>&quot;בואו נתחיל!&quot;</h1>
+        <div class="divider"></div>
+        <p class="subtitle"></p>
+    </div>
+
+</div>
+
+<div class="nav-hint">Arrow keys to navigate | F for fullscreen | P for print</div>
+
+<script>
+(function() {
+    const slides = document.querySelectorAll('.slide');
+    let cur = 0;
+    const total = slides.length;
+
+    function show(i) {
+        if (i < 0 || i >= total) return;
+        slides[cur].classList.remove('active');
+        cur = i;
+        slides[cur].classList.add('active');
+        update();
+    }
+
+    function update() {
+        document.getElementById('slideCounter').textContent = (cur+1) + ' / ' + total;
+        document.getElementById('progressBar').style.width = ((cur+1)/total*100) + '%';
+    }
+
+    document.addEventListener('keydown', function(e) {
+        switch(e.key) {
+            case 'ArrowLeft': case 'ArrowDown': case ' ': case 'PageDown': e.preventDefault(); show(cur+1); break;
+            case 'ArrowRight': case 'ArrowUp': case 'PageUp': e.preventDefault(); show(cur-1); break;
+            case 'Home': e.preventDefault(); show(0); break;
+            case 'End': e.preventDefault(); show(total-1); break;
+            case 'f': case 'F': e.preventDefault();
+                if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+                else document.exitFullscreen();
+                break;
+            case 'p': case 'P': e.preventDefault(); window.print(); break;
+        }
+    });
+
+    document.querySelector('.slides-wrapper').addEventListener('click', function(e) {
+        const rect = this.getBoundingClientRect();
+        if (e.clientX - rect.left < rect.width / 2) show(cur-1);
+        else show(cur+1);
+    });
+
+    let touchX = 0;
+    document.addEventListener('touchstart', e => touchX = e.touches[0].clientX);
+    document.addEventListener('touchend', e => {
+        const d = touchX - e.changedTouches[0].clientX;
+        if (Math.abs(d) > 50) { if (d > 0) show(cur+1); else show(cur-1); }
+    });
+
+    update();
+    window.slideAPI = { next: () => show(cur+1), prev: () => show(cur-1), goto: show, total, current: () => cur };
+})();
+</script>
+
+</body>
+</html>

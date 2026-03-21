@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>Selling Master - Slide Template</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0A1628;
+            --navy-light: #1B2D4A;
+            --navy-mid: #132240;
+            --gold: #D4A843;
+            --gold-light: #EEB332;
+            --white: #FFFFFF;
+            --gray: #8899AA;
+            --text: #C8D6E5;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .slide {
+            width: 1920px;
+            height: 1080px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(var(--scale, 1));
+            display: none;
+            overflow: hidden;
+        }
+        .slide.active { display: flex; }
+
+        /* ===== SLIDE TYPES ===== */
+
+        /* Title Slide */
+        .slide-title {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px;
+            position: relative;
+        }
+        .slide-title::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            left: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(238,179,50,0.15) 0%, transparent 70%);
+        }
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(238,179,50,0.1) 0%, transparent 70%);
+        }
+        .slide-title .module-tag {
+            background: rgba(238,179,50,0.15);
+            color: var(--gold-light);
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-size: 24px;
+            font-weight: 600;
+            border: 1px solid rgba(238,179,50,0.3);
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .slide-title h1 {
+            color: var(--white);
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            position: relative;
+        }
+        .slide-title .subtitle {
+            color: var(--gold-light);
+            font-size: 36px;
+            font-weight: 600;
+            position: relative;
+        }
+        .slide-title .lesson-num {
+            position: absolute;
+            bottom: 40px;
+            left: 60px;
+            color: var(--gray);
+            font-size: 20px;
+        }
+
+        /* Content Slide */
+        .slide-content {
+            background: linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 100%);
+            flex-direction: column;
+            padding: 60px 80px;
+        }
+        .slide-content .slide-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 50px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(238,179,50,0.2);
+        }
+        .slide-content .slide-header h2 {
+            color: var(--white);
+            font-size: 48px;
+            font-weight: 800;
+        }
+        .slide-content .slide-header .logo {
+            color: var(--gold-light);
+            font-size: 22px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+        }
+        .slide-content .content-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .slide-content ul {
+            list-style: none;
+            padding: 0;
+        }
+        .slide-content ul li {
+            color: var(--text);
+            font-size: 36px;
+            padding: 18px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            line-height: 1.5;
+        }
+        .slide-content ul li::before {
+            content: '▸';
+            color: var(--gold-light);
+            font-size: 28px;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+        .slide-content ul li strong { color: var(--white); }
+
+        /* Two Column Slide */
+        .slide-two-col {
+            background: linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 100%);
+            flex-direction: column;
+            padding: 60px 80px;
+        }
+        .slide-two-col .slide-header {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(238,179,50,0.2);
+        }
+        .slide-two-col .slide-header h2 {
+            color: var(--white);
+            font-size: 48px;
+            font-weight: 800;
+        }
+        .slide-two-col .columns {
+            display: flex;
+            gap: 60px;
+            flex: 1;
+        }
+        .slide-two-col .col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-two-col .col h3 {
+            color: var(--gold-light);
+            font-size: 32px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(238,179,50,0.15);
+        }
+        .slide-two-col .col ul { list-style: none; }
+        .slide-two-col .col ul li {
+            color: var(--text);
+            font-size: 28px;
+            padding: 12px 0;
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Number/Stat Slide */
+        .slide-stat {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .slide-stat .big-number {
+            font-size: 180px;
+            font-weight: 900;
+            color: var(--gold-light);
+            line-height: 1;
+            margin-bottom: 20px;
+            text-shadow: 0 0 60px rgba(238,179,50,0.3);
+        }
+        .slide-stat .stat-label {
+            font-size: 48px;
+            color: var(--white);
+            font-weight: 600;
+        }
+        .slide-stat .stat-sub {
+            font-size: 28px;
+            color: var(--gray);
+            margin-top: 16px;
+        }
+
+        /* Quote Slide */
+        .slide-quote {
+            background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy) 100%);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px;
+        }
+        .slide-quote .quote-mark {
+            font-size: 120px;
+            color: var(--gold-light);
+            opacity: 0.3;
+            line-height: 0.5;
+            margin-bottom: 20px;
+        }
+        .slide-quote blockquote {
+            font-size: 48px;
+            color: var(--white);
+            font-weight: 600;
+            line-height: 1.5;
+            max-width: 1200px;
+        }
+        .slide-quote .quote-author {
+            margin-top: 40px;
+            font-size: 28px;
+            color: var(--gold-light);
+        }
+
+        /* Summary/Recap Slide */
+        .slide-summary {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            flex-direction: column;
+            padding: 60px 80px;
+        }
+        .slide-summary .slide-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        .slide-summary .slide-header .icon { font-size: 48px; }
+        .slide-summary .slide-header h2 {
+            color: var(--gold-light);
+            font-size: 48px;
+            font-weight: 800;
+        }
+        .slide-summary .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            flex: 1;
+            align-content: center;
+        }
+        .slide-summary .summary-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 28px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .slide-summary .summary-item .num {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--navy);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        .slide-summary .summary-item p {
+            color: var(--text);
+            font-size: 26px;
+            line-height: 1.4;
+        }
+
+        /* Exercise Slide */
+        .slide-exercise {
+            background: linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 100%);
+            flex-direction: column;
+            padding: 60px 80px;
+        }
+        .slide-exercise .slide-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        .slide-exercise .slide-header h2 {
+            color: var(--gold-light);
+            font-size: 48px;
+            font-weight: 800;
+        }
+        .slide-exercise .task-box {
+            background: rgba(238,179,50,0.08);
+            border: 2px solid rgba(238,179,50,0.2);
+            border-radius: 20px;
+            padding: 40px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .slide-exercise .task-box h3 {
+            color: var(--white);
+            font-size: 36px;
+            margin-bottom: 24px;
+        }
+        .slide-exercise .task-box ol {
+            padding-right: 30px;
+        }
+        .slide-exercise .task-box ol li {
+            color: var(--text);
+            font-size: 30px;
+            padding: 10px 0;
+            line-height: 1.5;
+        }
+
+        /* ===== PRESENTER THUMBNAIL ===== */
+        .presenter-thumb {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--gold-light);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+        .presenter-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            transition: width 0.3s;
+        }
+
+        /* ===== SLIDE COUNTER ===== */
+        .slide-counter {
+            position: absolute;
+            bottom: 30px;
+            left: 60px;
+            color: var(--gray);
+            font-size: 18px;
+        }
+
+        /* ===== CONTROLS OVERLAY ===== */
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            padding: 10px 24px;
+            border-radius: 50px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            z-index: 100;
+            font-family: 'Heebo', sans-serif;
+        }
+        .controls button {
+            background: none;
+            border: 1px solid var(--gray);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Heebo', sans-serif;
+            font-size: 14px;
+        }
+        .controls button:hover { border-color: var(--gold-light); color: var(--gold-light); }
+        .controls .counter { color: var(--gray); font-size: 14px; }
+
+        /* Scale for preview */
+        @media (max-width: 1920px) {
+            :root { --scale: 0.5; }
+        }
+        @media (min-width: 1920px) {
+            :root { --scale: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== SLIDE 1: TITLE ===== -->
+<div class="slide slide-title active" data-slide="1">
+    <div class="module-tag">מודול 1 · שיעור 1</div>
+    <h1>ברוכים הבאים<br>לסלינג מאסטר</h1>
+    <div class="subtitle">ההכשרה המלאה למכירות באינטרנט</div>
+    <div class="lesson-num">SELLING MASTER · Module 1 · Lesson 1</div>
+    <div class="progress-bar" style="width:10%"></div>
+</div>
+
+<!-- ===== SLIDE 2: STAT ===== -->
+<div class="slide slide-stat" data-slide="2">
+    <div class="big-number">1.5M₪</div>
+    <div class="stat-label">מכירות שנתיות מעסק אחד</div>
+    <div class="stat-sub">לא תיאוריה — ניסיון אמיתי של בעל עסק פעיל</div>
+    <div class="presenter-thumb"><img src="../../leo_closeup.png" alt=""></div>
+    <div class="progress-bar" style="width:20%"></div>
+</div>
+
+<!-- ===== SLIDE 3: CONTENT ===== -->
+<div class="slide slide-content" data-slide="3">
+    <div class="slide-header">
+        <h2>מה תלמדו בקורס</h2>
+        <div class="logo">SELLING MASTER</div>
+    </div>
+    <div class="content-body">
+        <ul>
+            <li><strong>מודול 1:</strong> חשיבה עסקית דיגיטלית — היסודות</li>
+            <li><strong>מודול 2:</strong> מציאת מוצרים וספקים מנצחים</li>
+            <li><strong>מודול 3:</strong> בניית חנות אונליין שמוכרת 24/7</li>
+            <li><strong>מודול 4:</strong> שיווק ופרסום — פייסבוק, גוגל, תוכן</li>
+            <li><strong>מודול 5:</strong> משפכי מכירה ואוטומציות</li>
+            <li><strong>מודול 6:</strong> סקיילינג ושירות לקוחות</li>
+        </ul>
+    </div>
+    <div class="presenter-thumb"><img src="../../leo_closeup.png" alt=""></div>
+    <div class="progress-bar" style="width:30%"></div>
+</div>
+
+<!-- ===== SLIDE 4: TWO COLUMNS ===== -->
+<div class="slide slide-two-col" data-slide="4">
+    <div class="slide-header">
+        <h2>מה כלול בהכשרה</h2>
+    </div>
+    <div class="columns">
+        <div class="col">
+            <h3>📚 תוכן</h3>
+            <ul>
+                <li>✅ 62 שיעורי וידאו</li>
+                <li>✅ 22+ שעות תוכן מעשי</li>
+                <li>✅ 6 מודולים מסודרים</li>
+                <li>✅ חוברות עבודה להורדה</li>
+            </ul>
+        </div>
+        <div class="col">
+            <h3>🤝 תמיכה</h3>
+            <ul>
+                <li>✅ קהילת וואטסאפ (שנה)</li>
+                <li>✅ 3 מפגשי Q&A חיים</li>
+                <li>✅ גישה לכל החיים</li>
+                <li>✅ עדכונים ללא תשלום</li>
+            </ul>
+        </div>
+    </div>
+    <div class="presenter-thumb"><img src="../../leo_closeup.png" alt=""></div>
+    <div class="progress-bar" style="width:40%"></div>
+</div>
+
+<!-- ===== SLIDE 5: QUOTE ===== -->
+<div class="slide slide-quote" data-slide="5">
+    <div class="quote-mark">"</div>
+    <blockquote>ההשקעה הכי טובה שתעשו אי פעם —<br>היא בעצמכם</blockquote>
+    <div class="quote-author">— LEO, סלינג מאסטר</div>
+    <div class="presenter-thumb"><img src="../../leo_closeup.png" alt=""></div>
+    <div class="progress-bar" style="width:50%"></div>
+</div>
+
+<!-- ===== SLIDE 6: SUMMARY ===== -->
+<div class="slide slide-summary" data-slide="6">
+    <div class="slide-header">
+        <div class="icon">📝</div>
+        <h2>סיכום שיעור 1</h2>
+    </div>
+    <div class="summary-grid">
+        <div class="summary-item">
+            <div class="num">1</div>
+            <p>הקורס בנוי שלב-אחר-שלב מהבסיס</p>
+        </div>
+        <div class="summary-item">
+            <div class="num">2</div>
+            <p>מבוסס על ניסיון אמיתי, לא תיאוריה</p>
+        </div>
+        <div class="summary-item">
+            <div class="num">3</div>
+            <p>יש לכם קהילה ותמיכה לאורך כל הדרך</p>
+        </div>
+        <div class="summary-item">
+            <div class="num">4</div>
+            <p>תתחילו עם חוברת העבודה של מודול 1</p>
+        </div>
+    </div>
+    <div class="presenter-thumb"><img src="../../leo_closeup.png" alt=""></div>
+    <div class="progress-bar" style="width:90%"></div>
+</div>
+
+<!-- ===== SLIDE 7: EXERCISE ===== -->
+<div class="slide slide-exercise" data-slide="7">
+    <div class="slide-header">
+        <div>✏️</div>
+        <h2>משימה לשיעור הבא</h2>
+    </div>
+    <div class="task-box">
+        <h3>הכינו את עצמכם למודול 1:</h3>
+        <ol>
+            <li>הורידו את חוברת העבודה מהקישור שקיבלתם</li>
+            <li>חשבו על 3 תחומים שמעניינים אתכם לעסק</li>
+            <li>רשמו: מה הבעיה שאתם רוצים לפתור ללקוחות?</li>
+            <li>הצטרפו לקהילת הוואטסאפ והציגו את עצמכם</li>
+        </ol>
+    </div>
+    <div class="presenter-thumb"><img src="../../leo_closeup.png" alt=""></div>
+    <div class="progress-bar" style="width:100%"></div>
+</div>
+
+<!-- ===== CONTROLS ===== -->
+<div class="controls">
+    <button onclick="prevSlide()">◄ הקודם</button>
+    <span class="counter" id="slideCounter">1 / 7</span>
+    <button onclick="nextSlide()">הבא ►</button>
+    <button onclick="toggleFullscreen()">⛶ מסך מלא</button>
+</div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+
+function showSlide(n) {
+    slides.forEach(s => s.classList.remove('active'));
+    current = ((n % total) + total) % total;
+    slides[current].classList.add('active');
+    document.getElementById('slideCounter').textContent = `${current + 1} / ${total}`;
+}
+
+function nextSlide() { showSlide(current + 1); }
+function prevSlide() { showSlide(current - 1); }
+
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+        document.exitFullscreen();
+    }
+}
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown' || e.key === ' ') { nextSlide(); e.preventDefault(); }
+    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { prevSlide(); e.preventDefault(); }
+    if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+    if (e.key === 'Escape' && document.fullscreenElement) document.exitFullscreen();
+});
+
+// Auto-scale
+function autoScale() {
+    const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    document.documentElement.style.setProperty('--scale', scale);
+}
+window.addEventListener('resize', autoScale);
+autoScale();
+</script>
+</body>
+</html>
